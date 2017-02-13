@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[14pt]{article}
 \usepackage{graphicx}
 \usepackage{epsfig}
 \usepackage{url}
@@ -16,6 +16,7 @@
 \usepackage[hidelinks]{hyperref}
 \usepackage{wrapfig}
 \setpapersize{USletter}
+\usepackage{textpos}
 
 \setlength{\textheight}{220mm}
 \setlength{\textwidth}{160mm}
@@ -27,21 +28,53 @@
 \titlespacing{\subsection}{0pt}{*2.0}{*1.6}
 \titlespacing{\subsubsection}{0pt}{*1.6}{*1.2}
 
-\newcommand{\fulltitle}{IAS topic to be decided\xspace}
+\newcommand{\fulltitle}{Malware Analysis for Proactive Detection and Prevention\xspace}
 \title{\fulltitle}
+\author{Tejas Khairnar (1207690220, Group Leader) \\Sujay Vaishampayan (1209248166, Deputy Group Leader)\\  Zhibo Sun(1207644187)\\Harshil Maskai (1209174092)\\ Aloma Lopes (1209273126)\\ Chaitanya Palaka (1209261868)\\ Varun Chandrasekar (1209248010) \\ Kunal Bansal (1211213169) \\ Raj Dalvi (1209232176) \\ Vimal Vadivelu (1209203043)\\ \\
+		Arizona State University}
 
 \begin{document}
-	\maketitle
-	\author{Tejas Khairnar Sujay Vaishampayan Harshil Maskai Zhibo Sun Aloma Lopes\\
-	Arizona State University}
-	\section{Objective}
-	We are trying to perform the following things to as our project requirements for the course CSE 543 Information Assurance and Security
+	\begingroup
+		\fontsize{15pt}{15pt}\selectfont
+		\begin{center}
+			CSE 543 Information Assurance and Security \\~\\
+			Interim Report
+		\end{center}
+	\endgroup
+	{\let\newpage\relax\maketitle}
+	\section{Introduction}
+	\subsection{Background and Motivation}
+	In today’s world connected by the Internet, cyber security has become a major concern. In order
+to be secure, software as well as hardware industries around the world are working proactively to
+secure their software and stay secured. One of the major threats to these industries arises due to
+malware which can be defined as a small piece of software that is intended to damage or disable
+computers and computer systems. Hence our research survey is focused on studying techniques
+to proactively detect and defend against these malwares.
+
+Give an example of stuxnet
 	
-	\section{Motivation}
-	We are well motivated
+	\subsection{Goals and scope}
+	Our goal for this research survey is to explore and scrutinize various techniques to perform Malware Analysis and understand its application in the real world for proactive defense.
+	The scope of our research survey encompasses the following areas:
+	\begin{itemize}
+		\item{Various methods to perform Malware Analysis}
+		\item{Tools currently used to perform Malware Analysis} 
+		\item{Techniques for proactive defense against Malware}
+		\item{Techniques to prevent IT networks from Malwares}
+	\end{itemize}
 	
-	\section{Scope of Study}
-	Scope includes performing the following activities
+	\section{Tasks Completed}
+	This section talks about specific tasks completed by each group member till date.
+		\subsection{Tejas Khairnar (1207690220, Group Leader)}
+		\subsection{Sujay Vaishampayan (1209248166, Deputy Group Leader)}
+		\subsection{Zhibo Sun(1207644187)}
+		\subsection{Harshil Maskai (1209174092)}
+		\subsection{Aloma Lopes (1209273126)}
+		\subsection{Chaitanya Palaka (1209261868)}
+		\subsection{Varun Chandrasekar (1209248010)}
+		\subsection{Kunal Bansal (1211213169)}
+		\subsection{Raj Dalvi (1209232176)}
+		\subsection{Vimal Vadivelu (1209203043)}
 	
 	\section{Results}
 	
@@ -52,5 +85,6 @@
 			\hline
 		\end{tabular}
 	\end{table*}
-	
+\bibliography{biblio}
 \end{document}
+
