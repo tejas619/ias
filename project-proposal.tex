@@ -78,9 +78,9 @@ The above example inspires us with the need to be aware about cyber security and
 		Implementing a dynamic malware analysis system using hardware virtualization extensions along with virtual machine introspection is a novel approach. This enables almost complete isolation of the malware and the IDS which greatly increases the probability of identifying threats.\\ \\
 		I will be studying and analyzing the following papers in detail in the future:
 		\begin{itemize}
-			\item{Ether: Malware Analysis via Hardware Virtualization Extensions~\cite{dinaburg2008ether}}
-			\item{{Process Implanting: A New Active Introspection Framework for Virtualization~\cite{jiang2011procimplant}}
-			\item{SPIDER: Stealthy Binary Program Instrumentation and Debugging via Hardware Virtualization~\cite{dongyan2013spider}}
+			\item Ether: Malware Analysis via Hardware Virtualization Extensions~\cite{dinaburg2008ether}
+			\item Process Implanting: A New Active Introspection Framework for Virtualization~\cite{jiang2011procimplant}
+			\item SPIDER: Stealthy Binary Program Instrumentation and Debugging via Hardware Virtualization~\cite{dongyan2013spider}
 		\end{itemize}		
 		
 		\subsection{Zhibo Sun(1207644187)}
@@ -139,6 +139,21 @@ The above example inspires us with the need to be aware about cyber security and
 		\end{itemize}
 		
 		\subsection{Kunal Bansal (1211213169)}
+		My work is based on on providing malware network analysis. I went through “Sandnet: Network Traffic Analysis of Malicious Software.” paper, in which, Researchers are providing analysis about using network level activities to find unique vectors that can be used to backup insights provided by system level activities. These unique behaviors can be further used to collect and classify information and eventually mitigate malicious software.\\
+		They have created an in-depth analysis of malware network behaviour using the Sandnet system over a period of 12 months. Sandnet counters two limitations, short analysis period and lack of detailed network behavior analysis which provides an overview of network protocols used by the malware, namely DNS and HTTP. We can achieve following based on the paper:\\
+		
+		1. A Sandnet system for data collection using network analysis which can be used for prolonged period of time.
+		2. A network activities’ overview of 100,000 malwares and augment the data with previous efforts.
+		3. An in-depth analysis of DNS and HTTP traffic to define protocol specific usage behaviours of malware.\\
+		
+		This paper provides an analysis of basic vulnerability detection in a system using network analysis. This is a dynamic and data analytics based approach to use data mining using software and analyze malwares based on that. This is a good paper to complete project.\\
+		
+		I would be exploring more software based network analysis tools to detect malware in cloud, I would be reading following text:
+		\begin{itemize}
+			\item Snort: Lightweight intrusion detection for networks.
+			\item NICE: Network intrusion detection and countermeasure selection in virtual network systems.
+		\end{itemize}
+
 		\subsection{Raj Dalvi (1209232176)}
 		My responsibility is to work with my team in ensuring the timely submissions of all deliverables. I also went through the paper “Siren: Catching Evasive Malware~\cite{borders2006siren}” and got more information on proactive Malware detection and techniques for preventing damage via new malware.\\
 		The paper elaborates on a tool called Siren, an activity injection system which intends to fool malicious attackers by mocking human actions so the attacker will focus on them instead of the actual human actions. The traditional behavioral analysis is able to detect a lot of novel threats but they are always a step behind because they are reactive rather than proactive. Siren attempts to be more proactive against malware, specifically spyware.\\
@@ -153,33 +168,61 @@ The above example inspires us with the need to be aware about cyber security and
 		
 	
 	\section{Results}
+	Till now we have distributed various areas of Malware Analysis Techniques and proactive detection \& prevention amongst the group members. This distribution was done after every group member summarized their first research paper read about Malware Analysis. Every group member is taking equal efforts in understanding the topic they are working on and summarizing their work.\\ 
+	Table 1 shows various focus areas each group member is working on. Table 2 shows our project timeline we are trying to follow in order to complete our work in timely manner.
+	\begin{center}
+		\begin{tabular}{ccc}
+			\hline
+			Sr. No & Name & Research Area\\
+			\hline
+			1 & Tejas Khairnar & Static Malware Analysis\\
+			\hline
+			2 & Sujay Vaishampayan & Malware Analysis using Hardware Virtualization	Techniques\\
+			\hline
+			3 & Zhibo Sun & Malware Analysis using Hardware Virtualization	Techniques\\
+			\hline
+			4 & Harshil Maskai & Malware Reverse Engineering\\
+			\hline
+			5 & Aloma Lopes & Dynamic Malware Analysis\\
+			\hline
+			6 & Chaitanya Palaka & Malware Analysis using Machine Learning\\
+			\hline
+			7 & Varun Chandrashekar & Malware Reverse Engineering\\
+			\hline
+			8 & Raj Dalvi & Proactive Malware Detection\\
+			\hline
+			9 & Vimal Vadivelu & Dynamic Malware Analysis\\
+			\hline
+			10 & Kunal Bansal & Dynamic Malware Analysis\\
+			\hline\\
+	\end{tabular}\\
+	\caption{Table 1: Research Areas} \label{table: Research Areas}
+	\end{center}
 	\begin{center}
 		\begin{tabular}{cccc}
 			\hline
-			Sr. No & Name & Research Area & Timeline\\
+			Sr. No & Name & Timeline & Status\\
 			\hline
-			1 & Tejas Khairnar & Static Malware Analysis	& 12th March\\
+			1 & Decide about Research topic  & Week 1 starting 9th January & Completed\\
 			\hline
-			2 & Sujay Vaishampayan & Malware Analysis using Hardware Virtualization	Techniques & 12th March\\
+			2 & Search for research papers related to the topic & Week 2 starting 16th January & Completed\\
 			\hline
-			3 & Zhibo Sun & Malware Analysis using Hardware Virtualization	Techniques	& 12th March\\
+			3 & Intial Project Proposal & Week 3 starting 23rd January & Completed\\
 			\hline
-			4 & Harshil Maskai & Malware Reverse Engineering	& 12th March\\
+			4 & Summarize the work done till date for interim report & Week 3 \& 4 till 10th February & Completed\\
 			\hline
-			5 & Aloma Lopes & Dynamic Malware Analysis	& 12th March\\
+			5 & Interim Project Report  & Week 7 starting 20th February  & Completed\\
 			\hline
-			6 & Chaitanya Palaka & Malware Analysis using Machine Learning	& 12th March\\
+			6 & Reading more literature about Malware analysis techniques & Week 8 starting 27th February & TBD\\
 			\hline
-			7 & Varun Chandrashekar & Malware Reverse Engineering	& 12th March\\
+			7 & Discuss more about proactive detection and prevention of Malwares & Week 10 starting 13th March & TBD\\
 			\hline
-			8 & Raj Dalvi & Proactive Malware Detection	& 12th March\\
+			8 & Compiling more data from research papers read & Week 11 starting 20th March & TBD\\
 			\hline
-			9 & Vimal Vadivelu & Dynamic Malware Analysis	& 12th March\\
-			\hline
-			10 & Kunal Bansal & Dynamic Malware Analysis & 12th March\\
+			9 & Compiling the final survey report & Week 11 till 27th March & TBD\\
 			\hline\\
-	\end{tabular}
-	\caption{Table 1: Research Areas}
+		\end{tabular}\\
+	\caption{Table 2: Project Timeline} \label{table: Project Timeline}
 	\end{center}
 \bibliographystyle{plain}
 \bibliography{biblio}
