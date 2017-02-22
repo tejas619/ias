@@ -73,8 +73,7 @@ The above example inspires us with the need to be aware about cyber security and
 		This paper talks about sandbox technique being used for dynamic malware analysis. In dynamic malware analysis, the authors try to execute the malware in a sandboxed environment. They further discuss various approaches they took in order to analyze the malware like API hooking and DLL code injection. They have also built a CWSandboxed architecture in which they have described various phases to achieve malware analysis. The researchers further led their research into an open source tool called as "Cuckoo Sandbox: Automate Malware Analysis". Currently this is the best open source tool available in the security community.\\
 		\subsection{Sujay Vaishampayan (1209248166, Deputy Group Leader)}
 		I, as the deputy group leader, help the group leader in organizing meetings and keeping track of the progress made by our group. I'm making sure that the deadlines are met and the group is not behind schedule at any point. Currently, I have thoroughly read the paper, "Scalability, Fidelity and Stealth in the DRAKVUF Dynamic Malware Analysis System"~\cite{lengyel2014scalability}. \\ \\
-		Implementing an intrusion detection system on computers may tend to be in effective at times as malware has access to the entire system and may render the IDS ineffective. The malware will stealthily execute it's tasks and delete itself from the system or copy itself on to another system without leaving a single trace on the affected computer. This paper proposes a novel way in which we make use of hardware virtualization extension such as the Xen virtual Machine Monitor (VMM). We run multiple virtual machines on this hypervisor and the memory of each virtual machine is analyzed in the 'dom0' of the Xen hypervisor. DRAKVUF makes use of Copy-on-Write method to examine the memory by efficiently transferring the part of the memory which it wishes to examine over the network. The virtual machines are all connected along the same network via a NAT engine which makes the virtual machines invisible to each other. This effectively reduces the number of attack points or intrusion points for the malware and each virtual machine functions as an independent node. DRAKVUF makes use of a Direct Memory Access technique using LibVMI to access the memory of the target machine.\\ \\
-		DRAKVUF implements the use of break point injection in the operating system in order to log events and the values of various registers and the memory addresses being referenced. Inserting a break point in the system by writing a INT3 command in areas of interest triggers a VMEXIT command which transfers control to 'dom0' which is where DRAKVUF is running. The Extended Page Tables are then copied and examined for memory references that shouldn't be there, etc. DRAKVUF enables execution tracing which is the ability to trace the execution of processes by monitoring system calls along with Direct Kernel Object Manipulation (DKOM) attacks. DRAKVUF also allows us to monitor file system accesses using memory events.\\  \\
+		Implementing an intrusion detection system on computers may tend to be in effective at times as malware has access to the entire system and may render the IDS ineffective. The malware will stealthily execute it's tasks and delete itself from the system or copy itself on to another system without leaving a single trace on the affected computer. This paper proposes a novel way in which we make use of hardware virtualization extension such as the Xen virtual Machine Monitor (VMM). We run multiple virtual machines on this hypervisor and the memory of each virtual machine is analyzed in the 'dom0' of the Xen hypervisor. DRAKVUF makes use of Copy-on-Write method to examine the memory by efficiently transferring the part of the memory which it wishes to examine over the network. The virtual machines are all connected along the same network via a NAT engine which makes the virtual machines invisible to each other. This effectively reduces the number of attack points or intrusion points for the malware and each virtual machine functions as an independent node. DRAKVUF makes use of a Direct Memory Access technique using LibVMI to access the memory of the target machine.\\  \\
 		Implementing a dynamic malware analysis system using hardware virtualization extensions along with virtual machine introspection is a novel approach. This enables almost complete isolation of the malware and the IDS which greatly increases the probability of identifying threats.\\ \\
 		I will be studying and analyzing the following papers in detail in the future:
 		\begin{itemize}
@@ -199,7 +198,7 @@ The above example inspires us with the need to be aware about cyber security and
 			9 & Vimal Vadivelu & Dynamic Malware Analysis\\
 			\hline
 			10 & Kunal Bansal & Dynamic Malware Analysis\\
-			\hline\\
+			\hline
 	\end{tabular}\\
 	\caption{Table 1: Research Areas} \label{table: Research Areas}
 	\end{center}
@@ -225,7 +224,7 @@ The above example inspires us with the need to be aware about cyber security and
 			8 & Compiling more data from research papers read & Week 11 starting 20th March & TBD\\
 			\hline
 			9 & Compiling the final survey report & Week 11 till 27th March & TBD\\
-			\hline\\
+			\hline
 		\end{tabular}\\
 	\caption{Table 2: Project Timeline} \label{table: Project Timeline}
 	\end{center}
