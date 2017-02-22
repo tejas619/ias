@@ -84,6 +84,10 @@ The above example inspires us with the need to be aware about cyber security and
 		\end{itemize}		
 		
 		\subsection{Zhibo Sun(1207644187)}
+		In order to have a new point of view to proactively predict and prevent malwares, we are not only considering the analysis of the malware, but also the threat and malware intelligence. In order to have knowledge in this section, the paper I read was "Needles in a Haystack: Mining Information from Public Dynamic Analysis Sandboxes for Malware Intelligence~\cite{graziano2015needles}" that was published in 2015 USENIX SECURITY.
+		
+		This paper proposed a novel methodology to automatically detect if miscreants submit their samples to malware analysis sandbox during the malware developments phase and if this is the case, to acquire more insights about the dynamics of malware development. Their experimental results show that: by combining dynamic and static analysis with features based on the file submission, it is possible to achieve a good accuracy in automatically identifying cases of malware developments. They are able to automatically identify thousands of developments and show how the authors modify their programs to test their functionalities or to evade detections from known sandboxes. The more important contribution is that they provide a new point to proactively predict and prevent malicious softwares through threat intelligence, instead of only focusing on malware analysis.
+		
 		\subsection{Harshil Maskai (1209174092)}
 		My team is working collectively towards understanding the various aspects of Malware Analysis. I have been assigned the task of researching the topic of Malware Reverse Engineering and gathering as much literature on this topic as possible. I started by reading the paper "Helping Johnny to Analyze Malware - A usability-optimized decompiler and malware analysis user study~\cite{yakdan2016helping}" which talks about the current industry standards being used to decompile malware code and their shortcomings. \\
 		The two major contribution made by this paper were:
@@ -129,7 +133,13 @@ The above example inspires us with the need to be aware about cyber security and
 			\item Content Based File Type Detection Algorithms~\cite{mcdaniel2003content}
 		\end{itemize}
 		\subsection{Vimal Vadivelu (1209203043)}
-		My work is to find good research papers in the malware analysis field and understand them in detail. In addition to the above, I also read a paper, “Identifying Dormant Functionality in Malware Programs~\cite{comparetti2010identifying}”, which proposes a new method in dynamic malware analysis. The paper talks about the disadvantages of the existing methods in the malware analysis and they propose a new idea called “REANIMATOR” for determining the malicious capabilities of malware programs. The main advantage of this “REANIMATOR” method is that it increases the number of ways that are dynamically explored than that of the traditional ones. The authors proved their idea by testing with IRC bots, packed bots. \\
+		My work is to find good research papers in the malware analysis field and understand them in detail. In addition to the above, I also read a paper, “Identifying Dormant Functionality in Malware Programs~\cite{comparetti2010identifying}”, which proposes a new method in dynamic malware analysis. 
+		This paper proposed an approach that leverage behavior observed while dynamically executing a specific malware sample to identify similar functionality in other programs. When they observe malicious actions during dynamic analysis, they automatically extract and model the parts of the malware binary that are responsible for this behavior. Then, they leverage these models to check whether similar code is present in other samples, which allows them to identify dormant functionality( functionality that is not observed during dynamic analysis) statically in malicious program.\\
+		The paper has three main contributions:
+		Introduce a novel technique to automatically identify and model code regions in binaries that are directly responsible for specific runtime behaviors,
+		Present a system that leverages models to statically check unknown programs for the presence of previously-seen, malicious functionality,
+		Experimental evaluation demonstrates that the system successfully finds dormant behaviors in malware samples that are not discovered by a dynamic malware analysis tool.
+		
 		
 		Overall the paper gives good understanding of dynamic malware analysis and its advantages and disadvantages. To further deepen my knowledge, the papers I am further considering are,
 		\begin{itemize}
@@ -140,18 +150,13 @@ The above example inspires us with the need to be aware about cyber security and
 		
 		\subsection{Kunal Bansal (1211213169)}
 		My work is based on on providing malware network analysis. I went through “Sandnet: Network Traffic Analysis of Malicious Software.” paper, in which researchers are providing analysis about using network level activities to find unique vectors that can be used to backup insights provided by system level activities. These unique behaviors can be further used to collect and classify information and eventually mitigate malicious software.\\
-		They have created an in-depth analysis of malware network behaviour using the Sandnet system over a period of 12 months. Sandnet counters two limitations, short analysis period and lack of detailed network behavior analysis which provides an overview of network protocols used by the malware, namely DNS and HTTP. We can achieve following based on the paper:\\
+		They have created an in-depth analysis of malware network behaviour using the Sandnet system over a period of 12 months. Sandnet counters two limitations, short analysis period and lack of detailed network behavior analysis which provides an overview of network protocols used by the malware, namely DNS and HTTP. The paper achieves the following things, a Sandnet system for data collection using network analysis which can be used for prolonged period of time, a network activities’ overview of 100,000 malwares and augment the data with previous efforts.
+		and an in-depth analysis of DNS and HTTP traffic to define protocol specific usage behaviours of malware.\\
 		
-		1. A Sandnet system for data collection using network analysis which can be used for prolonged period of time.
-		2. A network activities’ overview of 100,000 malwares and augment the data with previous efforts.
-		3. An in-depth analysis of DNS and HTTP traffic to define protocol specific usage behaviours of malware.\\
-		
-		This paper provides an analysis of basic vulnerability detection in a system using network analysis. This is a dynamic and data analytics based approach to use data mining using software and analyze malwares based on that. This is a good paper to complete project.\\
-		
-		I would be exploring more software based network analysis tools to detect malware in cloud, I would be reading following text:
+		This paper also provides an analysis of basic vulnerability detection in a system using network analysis. This is a dynamic and data analytics based approach to use data mining using software and analyze malwares based on that. I would be exploring more software based network analysis tools to detect malware in cloud, I would be going through the following research papers hereafter:
 		\begin{itemize}
-			\item Snort: Lightweight intrusion detection for networks.
-			\item NICE: Network intrusion detection and countermeasure selection in virtual network systems.
+			\item Snort: Lightweight intrusion detection for networks.~\cite{roesch1999snort}
+			\item NICE: Network intrusion detection and countermeasure selection in virtual network systems.~\cite{chung2013nice}
 		\end{itemize}
 
 		\subsection{Raj Dalvi (1209232176)}
