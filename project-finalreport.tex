@@ -1,0 +1,238 @@
+\documentclass[16pt]{article}
+\usepackage{graphicx}
+\usepackage{epsfig}
+\usepackage{url}
+\usepackage[english]{babel}
+\usepackage{vmargin}
+\usepackage{times}
+\usepackage{amssymb}
+\usepackage[fleqn]{amsmath}
+\usepackage{cite}
+\usepackage{titling}
+\usepackage{color}
+\usepackage{xspace}
+\usepackage{listings}
+\usepackage{upquote}
+\usepackage[hidelinks]{hyperref}
+\usepackage{wrapfig}
+\setpapersize{USletter}
+\usepackage{textpos}
+\usepackage{enumitem}
+
+\setlength{\textheight}{220mm}
+\setlength{\textwidth}{160mm}
+\evensidemargin=1.1in
+\oddsidemargin=1.1in
+\topmargin=0.45in
+\usepackage[compact,noindentafter]{titlesec}
+\titlespacing{\section}{0pt}{*2.4}{*1.8}
+\titlespacing{\subsection}{0pt}{*2.0}{*1.6}
+\titlespacing{\subsubsection}{0pt}{*1.6}{*1.2}
+
+\newcommand{\fulltitle}{Malware Analysis for Proactive Detection and Prevention\xspace}
+\title{\fulltitle}
+\author{Tejas Khairnar (1207690220, Group Leader) \\Sujay Vaishampayan (1209248166, Deputy Group Leader)\\  Zhibo Sun(1207644187)\\Harshil Maskai (1209174092)\\ Aloma Lopes (1209273126)\\ Chaitanya Palaka (1209261868)\\ Varun Chandrasekar (1209248010) \\ Kunal Bansal (1211213169) \\ Raj Dalvi (1209232176) \\ Vimal Vadivelu (1209203043)\\ \\
+		Arizona State University}
+
+\begin{document}
+	\begingroup
+		\fontsize{15pt}{15pt}\selectfont
+		\begin{center}
+			CSE 543 Information Assurance and Security \\~\\
+			Interim Report
+		\end{center}
+	\endgroup
+	{\let\newpage\relax\maketitle}
+	\section{Introduction}
+	\subsection{Background and Motivation}
+	In today’s world connected by the Internet, cyber security has become a major concern. In order
+to be secure, software as well as hardware industries around the world are working proactively to
+secure their software and stay secured. One of the major threats to these industries arises due to
+malware which can be defined as a small piece of software that is intended to damage or disable
+computers and computer systems. Hence our research survey is focused on studying techniques
+to proactively detect and defend against these malwares.
+
+Stuxnet~\cite{creators2013kill, stuxnet} considered to be the most sophisticated piece of malware ever detected was used in operations against Iran in 2010. Stuxnet was so sophisticated and complicated that it was believed that this malware could be developed and deployed only with fundings which rivals that of the military of a nation. Stuxnet is unique in its own nature because unlike other Viruses or Worms it targets systems that are traditionally not connected to the internal network, which can also be termed as isolated machines. It infected Windows machines through USB keys and then propagated across the network scanning for Siemens Step7 software on computers controlling Programmable Logic Controllers (PLC). This helped the malware to use the information it gathered to take control of other systems and crash them upon infection. Stuxnet even provided fake feedback to the main controllers outside the network, leading the other systems to believe that the infected computer is functioning normally. All these efforts were part of a Cyber War waged against the Iranian Nuclear Program in order to slow it down.
+
+The above example inspires us with the need to be aware about cyber security and how it might affect our cyber world. Many organizations like Kaspersky labs, CrowdStrike are constantly developing expertise to detect these kind of malwares and Trojans spreading around the world. Therefore, we found this area,'Malware Analysis for Proactive Detection and Prevention', very intriguing and considered it to be the center of our research survey.
+	\subsection{Goals and scope}
+	Our goal for this research survey is to explore and scrutinize various techniques to perform Malware Analysis and understand its application in the real world for proactive defense.
+	The scope of our research survey encompasses the following areas:
+	\begin{itemize}[noitemsep]
+		\item{Various methods to perform Malware Analysis}
+		\item{Tools currently used to perform Malware Analysis} 
+		\item{Techniques for proactive defense against Malware}
+		\item{Techniques to prevent IT networks from Malwares}
+	\end{itemize}
+	
+	\section{Tasks Completed}
+	This section talks about specific tasks completed by each group member till date.
+		\subsection{Tejas Khairnar (1207690220, Group Leader)}
+		I, as the group leader, am organizing weekly meetings with the whole team. My duties include keeping a check on work done by every group member.
+		I am also helping everyone with finding good papers in the area of 'Malware Analysis Techniques'. Apart from that I have also been reading the research paper "Toward automated dynamic malware analysis using cwsandbox"~\cite{willems2007toward}. \\
+		This paper talks about sandbox technique being used for dynamic malware analysis. In dynamic malware analysis, the authors try to execute the malware in a sandboxed environment. They further discuss various approaches they took in order to analyze the malware like API hooking and DLL code injection. They have also built a CWSandboxed architecture in which they have described various phases to achieve malware analysis. The researchers further led their research into an open source tool called as "Cuckoo Sandbox: Automate Malware Analysis". Currently this is the best open source tool available in the security community.\\
+		My next steps will be to read more about Malware Analysis techniques and how we can proactively defend and prevent them. In order to build up a concrete story and take the team to successful completion of the research survey I will go through a research survey paper on Automated Dynamic Malware-Analysis Techniques and Tools~\cite{egele2012survey} published in ACM Computing Surveys in the year 2012. 		
+		\subsection{Sujay Vaishampayan (1209248166, Deputy Group Leader)}
+		I, as the deputy group leader, help the group leader in organizing meetings and keeping track of the progress made by our group. I'm making sure that the deadlines are met and the group is not behind schedule at any point. Currently, I have thoroughly read the paper, "Scalability, Fidelity and Stealth in the DRAKVUF Dynamic Malware Analysis System"~\cite{lengyel2014scalability}. \\
+		Implementing an intrusion detection system on computers may tend to be in effective at times as malware has access to the entire system and may render the IDS ineffective. The malware will stealthily execute it's tasks and delete itself from the system or copy itself on to another system without leaving a single trace on the affected computer. This paper proposes a novel way in which we make use of hardware virtualization extension such as the Xen virtual Machine Monitor (VMM). We run multiple virtual machines on this hypervisor and the memory of each virtual machine is analyzed in the 'dom0' of the Xen hypervisor. DRAKVUF makes use of Copy-on-Write method to examine the memory by efficiently transferring the part of the memory which it wishes to examine over the network. The virtual machines are all connected along the same network via a NAT engine which makes the virtual machines invisible to each other. This effectively reduces the number of attack points or intrusion points for the malware and each virtual machine functions as an independent node. DRAKVUF makes use of a Direct Memory Access technique using LibVMI to access the memory of the target machine.\\ 
+		Implementing a dynamic malware analysis system using hardware virtualization extensions along with virtual machine introspection is a novel approach. This enables almost complete isolation of the malware and the IDS which greatly increases the probability of identifying threats.\\
+		I will be studying and analyzing the following papers in detail in the future:
+		\begin{itemize}[noitemsep]
+			\item Ether: Malware Analysis via Hardware Virtualization Extensions~\cite{dinaburg2008ether}
+			\item Process Implanting: A New Active Introspection Framework for Virtualization~\cite{jiang2011procimplant}
+			\item SPIDER: Stealthy Binary Program Instrumentation and Debugging via Hardware Virtualization~\cite{dongyan2013spider}
+		\end{itemize}		
+		
+		\subsection{Zhibo Sun(1207644187)}
+		In order to have a new point of view to proactively predict and prevent malwares, we are not only considering the analysis of the malware, but also the threat and malware intelligence. In order to have knowledge in this section, the paper I read was "Needles in a Haystack: Mining Information from Public Dynamic Analysis Sandboxes for Malware Intelligence~\cite{graziano2015needles}" that was published in 2015 USENIX SECURITY.
+		
+		This paper proposed a novel methodology to automatically detect if miscreants submit their samples to malware analysis sandbox during the malware developments phase and if this is the case, to acquire more insights about the dynamics of malware development. Their experimental results show that: by combining dynamic and static analysis with features based on the file submission, it is possible to achieve a good accuracy in automatically identifying cases of malware developments. They are able to automatically identify thousands of developments and show how the authors modify their programs to test their functionalities or to evade detections from known sandboxes. The more important contribution is that they provide a new point to proactively predict and prevent malicious softwares through threat intelligence, instead of only focusing on malware analysis.\\
+		My next steps will be to explore more about threat intelligence and how malware analysis can be a part of it. I will summarize in-depth about our paper "Toward Automated Threat Intelligence Fusion"~\cite{moditowards} and explain strategies for proactive detection and prevention against Malware threats.
+		
+		\subsection{Harshil Maskai (1209174092)}
+		My team is working collectively towards understanding the various aspects of Malware Analysis. I have been assigned the task of researching the topic of Malware Reverse Engineering and gathering as much literature on this topic as possible. I started by reading the paper "Helping Johnny to Analyze Malware - A usability-optimized decompiler and malware analysis user study~\cite{yakdan2016helping}" which talks about the current industry standards being used to decompile malware code and their shortcomings. \\
+		The two major contribution made by this paper were:
+		First, the authors provided several code transformation techniques which preserve the semantics of the malware code and improve code readability. The authors created DREAM++ an extension to the current state-of-the-art decompilers which simplifies expression and control flow transformations and also maintains the semantics of the variables and constants according to the context they were used in.
+		Second, the authors conducted several studies to compare the three decompilers and note the improvements of the DREAM++ over the already existing decompilers.\\
+		My next steps involve diving deep into the topic of Malware reverse engineering by reading papers associated to the one above. 
+		The associated papers which I found useful and relevant to this one are:
+		\begin{itemize}[noitemsep]
+			\item{Decompilers and beyond~\cite{guilfanov2008decompilers}}
+			\item{No More Gotos: Decompilation Using Pattern-Independent Control-Flow Structuring and Semantics-Preserving Transformations~\cite{yakdan2015no}}
+			\item{Automatic Reverse Engineering of Data Structures from Binary Execution~\cite{lin2010automatic}}
+		\end{itemize}
+		
+		\subsection{Aloma Lopes (1209273126)}
+		I have been researching on processes to determine the behavior and purpose of any malware sample and thus went through the paper “Exploring Multiple Execution Paths for Malware Analysis~\cite{moser2007exploring}”. Traditional Malware analysis tools observe the behavior of the sample only on a single program execution path, i.e, the reports generated by their analysis of the samples contains the interaction observed in a given test environment and at a particular point in time. This does not give us a comprehensive overview of the actions that the sample can perform. The reason is that these malware programs contain certain checks for the execution of certain parts of their code and if these conditions are not met while it’s interaction in that execution trace in which it is analyzed, incorrect conclusions may be drawn as these conditional parts of the code have not been executed.\\
+		According to the paper, the limitation of these traditional malware analysis tools can be overcome by increasing the test coverage and allow automated malware systems to explore multiple execution paths of a malware program, depending on how certain inputs are processed by the code. It tracks some interesting inputs that are read by the program and then identify decision points that use these inputs to decide the program flow. These decision points are then snapshot, so that we return to them to alter the inputs in such a way that it explores all possible branches. The experimental results performed on a set of 308 real-world malicious code samples demonstrate that these different malware samples exhibit different behavior based on the input read from the environment.\\
+		To further understand existing systems that perform malware analysis, I will read the following papers and understand the procedure that they have followed to detect the behavior of malware samples:
+		\begin{itemize}[noitemsep]
+			\item TTAnalyze: A Tool for Analyzing Malware~\cite{bayer2006ttanalyze}
+			\item Towards Automatically Identifying Trigger-based Behavior in Malware using Symbolic Execution and Binary Analysis~\cite{brumley2008automatically}
+			\item Detecting Kernel-Level Rootkits Through Binary Analysis~\cite{kruegel2004detecting}
+		\end{itemize}
+	
+		\subsection{Chaitanya Palaka (1209261868)}
+		To understand the topic of Malware Analysis better, I had chosen to read the paper 'Linux kernel-based feature selection for Android Malware Detection~\cite{kim2014linux}'. This paper discusses the automatic detection of malware on Android systems. Specifically, malware detection on Android was chosen because the platform is more vulnerable than others due to its open source nature. The authors of this paper use Machine Learning to achieve this, using a custom feature selection method and an SVM (support vector machine) classifier. The authors have composed a set of 59 features from the linux kernel from the subcategories of Memory, CPU and Network. These 'features' were taken from the linux /proc folder which holds system process information. The authors have then chosen to test their classifier with different set of features to test the accuracy. This was also due to the fact that previous research in this area used a far less number of features, and the authors were mainly considering the question : at what number of features does the classifier perform optimally? The results of their experiments were quite good, and optimal and correct classification of malware was found with 36 unique features.\\
+		Going forward, I will research more about malware detection on linux systems. The papers i am considering reading and understanding are:
+		\begin{itemize}[noitemsep]
+			\item Mobile malware detection through analysis of deviations in application network behavior.~\cite{shabtai2014mobile}
+			\item Andromaly”: a behavioral malware detection framework for android devices.~\cite{shabtai2012andromaly}
+			\item AppsPlayground: automatic security analysis of smartphone applications.~\cite{rastogi2013appsplayground}
+			\item DroidScope: Seamlessly Reconstructing the OS and Dalvik Semantic Views for Dynamic Android Malware Analysis.~\cite{yan2012droidscope}
+		\end{itemize}
+		
+		\subsection{Varun Chandrasekar (1209248010)}
+		Our team is working towards understanding various techniques that aid in malware analysis and detection. With respect to this have taken up the task of studying the research paper titled "Fileprint Analysis for Malware Detection~\cite{stolfo2005fileprint}". The paper elucidates the various experiments the authors conducted to augment existing principles in malware detection and specifically talks about employing statistical binary content analysis to better single out the file segments that appear to be infected by malware. The experiments conducted included inserting malware at different locations and seeing how easily it is detected by the scanner with respect to the position it was injected in. It also talks about analyzing binary content 1-gram distributions to classify infected files and also talks about using n-gram distance to distinguish self encrypted files from common executable files.\\
+		Overall the paper gives a good understanding of the various pros and cons to the current malware detection techniques and discusses the results of experiments that were conducted to augment them. To further deepen my understanding, and collect as much relevant information on the topic as possible, I plan to go through the research papers listed below:
+		\begin{itemize}[noitemsep]
+			\item Fileprints: Identifying File Types by n-gram Analysis.~\cite{li2005fileprints}
+			\item MEF: Malicious Email Filter A UNIX Mail Filter that Detects Malicious Windows Executables~\cite{schultz2001mef}
+			\item Content Based File Type Detection Algorithms~\cite{mcdaniel2003content}
+		\end{itemize}
+		\subsection{Vimal Vadivelu (1209203043)}
+		My work is to find good research papers in the malware analysis field and understand them in detail. In addition to the above, I also read a paper, “Identifying Dormant Functionality in Malware Programs~\cite{comparetti2010identifying}”, which proposes a new method in dynamic malware analysis. 
+		This paper proposed an approach that leverage behavior observed while dynamically executing a specific malware sample to identify similar functionality in other programs. When they observe malicious actions during dynamic analysis, they automatically extract and model the parts of the malware binary that are responsible for this behavior. Then, they leverage these models to check whether similar code is present in other samples, which allows them to identify dormant functionality( functionality that is not observed during dynamic analysis) statically in malicious program.\\
+		The paper has three main contributions:
+		Introduce a novel technique to automatically identify and model code regions in binaries that are directly responsible for specific runtime behaviors,
+		Present a system that leverages models to statically check unknown programs for the presence of previously-seen, malicious functionality,
+		Experimental evaluation demonstrates that the system successfully finds dormant behaviors in malware samples that are not discovered by a dynamic malware analysis tool.
+		
+		
+		Overall the paper gives good understanding of dynamic malware analysis and its advantages and disadvantages. To further deepen my knowledge, the papers I am further considering are,
+		\begin{itemize}[noitemsep]
+			\item Integrating Static and Dynamic Malware Analysis Using Machine Learning~\cite{mangialardo2015integrating}
+			\item PyTrigger: A System to Trigger \& Extract User-Activated Malware Behavior~\cite{fleck2013pytrigger}
+			\item A Testing Model for Dynamic Malware Analysis Systems~\cite{massicotte2012testing}
+		\end{itemize}
+		
+		\subsection{Kunal Bansal (1211213169)}
+		My work is based on on providing malware network analysis. I went through “Sandnet: Network Traffic Analysis of Malicious Software~\cite{rossow2011sandnet} paper, in which researchers are providing analysis about using network level activities to find unique vectors that can be used to backup insights provided by system level activities. These unique behaviors can be further used to collect and classify information and eventually mitigate malicious software.\\
+		They have created an in-depth analysis of malware network behaviour using the Sandnet system over a period of 12 months. Sandnet counters two limitations, short analysis period and lack of detailed network behavior analysis which provides an overview of network protocols used by the malware, namely DNS and HTTP. The paper achieves the following things, a Sandnet system for data collection using network analysis which can be used for prolonged period of time, a network activities’ overview of 100,000 malwares and augment the data with previous efforts.
+		and an in-depth analysis of DNS and HTTP traffic to define protocol specific usage behaviours of malware.\\
+		This paper also provides an analysis of basic vulnerability detection in a system using network analysis. This is a dynamic and data analytics based approach to use data mining using software and analyze malwares based on that. I would be exploring more software based network analysis tools to detect malware in cloud, I would be going through the following research papers hereafter:
+		\begin{itemize}[noitemsep]
+			\item Snort: Lightweight intrusion detection for networks.~\cite{roesch1999snort}
+			\item NICE: Network intrusion detection and countermeasure selection in virtual network systems.~\cite{chung2013nice}
+		\end{itemize}
+
+		\subsection{Raj Dalvi (1209232176)}
+		My responsibility is to work with my team in ensuring the timely submissions of all deliverables. I also went through the paper “Siren: Catching Evasive Malware~\cite{borders2006siren}” and got more information on proactive Malware detection and techniques for preventing damage via new malware.\\
+		The paper elaborates on a tool called Siren, an activity injection system which intends to fool malicious attackers by mocking human actions so the attacker will focus on them instead of the actual human actions. The traditional behavioral analysis is able to detect a lot of novel threats but they are always a step behind because they are reactive rather than proactive. Siren attempts to be more proactive against malware, specifically spyware.\\
+		Secondly, the paper also admits that the tool has some weaknesses such as using an out-of-band channel to detect the mimicry of human activities. So, it is a well-rounded paper and provides a good perspective on proactive malware analysis.
+		
+		The researchers used virtual machines for their experiments. So, I will go into further detail on how they performed said experiments by going through the following papers:
+		\begin{itemize}[noitemsep]
+			\item Subvirt: Implementing malware with virtual machines.~\cite{king2006subvirt}
+			\item An Evening with Berferd In Which a Hacker is Lured Endured and Studied.~\cite{cheswick1992evening}
+			\item Undermining an Anomaly-Based Intrusion Detection System Using Common Exploits.~\cite{tan2002undermining}
+		\end{itemize}
+	
+	\section{What is a Malware?}
+	Software that deliberately fulfills the harmful intent of an attacker is commonly know referred to as malicious software or malware~\cite{moser2007exploring}. These malwares can be further classified as terms like 'virus', 'worm' or 'trojans'. The very first time when someone created a malicious software it was categorized as virus. This virus was created by people who just wanted to show off their technical ability and skills. As of today, the motivations to created these malicious software has changed. Its no more showing off technical skills or having fun with some friends or colleagues. An underground economy has been setup today based on these malicious softwares.
+	Consider a simple scenario which illustrates the distribution of malware and its effects. A bot is remotely-controlled piece of malware that has infected a connected network. Now this bot allows any, so called bot-master, to control itself remotely. This network of machines which is connected and can be controlled remotely is called a botnet. Now this botnet can be rented or soled by the master to any buyer/user/group to perform malicious activity like spam email servers, send spam emails which contain malicious links, webpages.  These links and webpages in turn collect personal information of the victims such as credit card details and bank account credentials. All the people involved in this chain make money exploiting their victims. In today's world, the systems are so well connected that it is quite possible to create more sophisticated type of malware which would remain undetected for days, weeks.
+	The risk described above motivates the need to create a tool that would detect and mitigate these types of malwares. In order to counter this risk, softwares like Anti-Virus which is based on signature-based detection approach have been developed. These signatures are unique to certain malware. This signature based detection approach has two drawbacks, one, these signatures are written by human analyst and hence prone to human errors, two, these signatures will only detect known type of malware and always fail to detect unkown malwares.
+	There are other techniques developed which overcomes the second drawback but these techniques generate a lot of false positives. That is, legitimate samples are falsely classified by the detection system as being malicious due to detector's inability to distinguish between malicious software and legitimate software. 
+	\section{Types of Malwares}
+	state different types of malwares
+	\section{Results}
+	Till now we have distributed various areas of Malware Analysis Techniques and proactive detection \& prevention amongst the group members. This distribution was done after every group member summarized their first research paper read about Malware Analysis. Every group member is taking equal efforts in understanding the topic they are working on and summarizing their work.\\ 
+	Table 1 shows various focus areas each group member is working on. Table 2 shows our project timeline we are trying to follow in order to complete our work in timely manner.
+	\begin{center}
+		\begin{tabular}{ccc}
+			\hline
+			Sr. No & Name & Research Area\\
+			\hline
+			1 & Tejas Khairnar & Proactive Detection and Prevention of Malwares\\
+			\hline
+			2 & Sujay Vaishampayan & Malware Analysis using Hardware Virtualization	Techniques\\
+			\hline
+			3 & Zhibo Sun & Proactive Detection and Prevention of Malwares\\
+			\hline
+			4 & Harshil Maskai & Malware Reverse Engineering\\
+			\hline
+			5 & Aloma Lopes & Dynamic Malware Analysis\\
+			\hline
+			6 & Chaitanya Palaka & Malware Analysis using Machine Learning\\
+			\hline
+			7 & Varun Chandrasekar & Malware Reverse Engineering\\
+			\hline
+			8 & Raj Dalvi & Proactive Malware Detection\\
+			\hline
+			9 & Vimal Vadivelu & Dynamic Malware Analysis\\
+			\hline
+			10 & Kunal Bansal & Dynamic Malware Analysis\\
+			\hline
+	\end{tabular}\\
+	\caption{Table 1: Research Areas} \label{table: Research Areas}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{cccc}
+			\hline
+			Sr. No & Name & Timeline & Status\\
+			\hline
+			1 & Decide about Research topic  & Week 1 starting 9th January & Completed\\
+			\hline
+			2 & Search for research papers related to the topic & Week 2 starting 16th January & Completed\\
+			\hline
+			3 & Intial Project Proposal & Week 3 starting 23rd January & Completed\\
+			\hline
+			4 & Summarize the work done till date for interim report & Week 3 \& 4 till 10th February & Completed\\
+			\hline
+			5 & Interim Project Report  & Week 6 starting 20th February  & Completed\\
+			\hline
+			6 & Reading more literature about Malware analysis techniques & Week 7 starting 27th February & TBD\\
+			\hline
+			7 & Discuss more about proactive detection and prevention of Malwares & Week 9 starting 13th March & TBD\\
+			\hline
+			8 & Compiling more data from research papers read & Week 10 starting 20th March & TBD\\
+			\hline
+			9 & Compiling the final survey report & Week 11 till 27th March & TBD\\
+			\hline
+		\end{tabular}\\
+	\caption{Table 2: Project Timeline} \label{table: Project Timeline}
+	\end{center}
+\bibliographystyle{plain}
+\bibliography{biblio}
+\end{document}
+
