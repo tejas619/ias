@@ -272,7 +272,123 @@ The above example inspires us with the need to be aware about cyber security and
 	We have seen that there exist many different approaches to malware detection on Android systems. Ubiquitously, dynamic analysis is considered to be far more advantageous than static analysis on this system, particularly due to the ease of code obfuscation. Another trend we can observe is the use of Machine Learning to learn the various models of the types of malware in operation currently. This idea has a lot of potential and I believe with the progress of machine learning techniques and algorithms, malware analysis will continue to become better and better and perhaps malware on Android systems will be vanquished entirely.
 
 	\section{Techniques for Proactive Defense against Malwares}
-	Techniques for Proactive Defense against Malwares
+	
+	Traditional behavioral analysis tends to be a step behind the attackers. To defend against cyber attacks, enterprises have set up response teams but they are usually not effective enough. Sometimes attackers use APT (Advanced Persistent Threat) that is, gaining information on the security measures of the attacked area and elsewhere~\cite{cyberthreatanalysis} by repeated target attacks. As a result, researchers focus on handling APT proactively. Malwares use hooks to register their program into the location~\cite{hookscout}. Rootkits, Network sniffers and other harmful programs use hooks to start their invasion. So, logically, the researchers decided to create a binary-centric hook detection policy which would proactively take care of malware itself. An ideal way to protect from malware attacks is using machine learning and soft computing which is done by Raman Singh and his team of researchers~\cite{softcomputingproactive}. Techniques such as Artificial Neural Networks, Artificial Immune System (AIS) and Fuzzy Set among others were used to combat malware and viruses.  Finally, this report also looked at Muneesh Sharma and Tajinder Kaur’s research on Network Intrusion Detection using Proactive Mechanism~\cite{nidsproactive}. Signature-based defense techniques such as Firewall are less effective when it comes to proactively defending against Malware primarily because they rely on predefined signature sets and are unprepared against newer malwares. So it is still reactive as opposed to proactive. This research makes use of Honeypots to proactively defend against malware. Jianguo Ding~\cite{behaviorbasedproactive} discussed about analyzing malware behavior to proactively defend against unknown malicious codes. \\
+	
+	\subsection{Proactive Defense Model based on Cyber Threat Analysis}
+	
+	Cyber Attacks have become very sophisticated in recent years. Targeted Areas and number of incidents have both increased in alarming quantities. As a result, companies have been forced to adapt an approach where they have to assume that attacks will happen. Sandboxing is one such technique which is used which involves examining files in an isolated environment to check for suspicious behavior. Companies have set up Security Response teams but even they are not enough since damage can happen from leakage of information. The reason for this is APT (Advanced Persistent Threat) which is a repeated targeted attack based on information on security measures. As a result, researchers have begun analyzing APT attacks to develop countermeasures. 
+	
+	The attack via APT can be described in phases:
+	
+	\begin{itemize}
+		\item First phase is to prepare for attack by using emails with malware to breach security of the targeted organization.
+		\item Second phase is to infiltrate PCs with malware.
+		\item Third phase is to construct infrastructure by using backdoor and monitoring networks to collect information on the security system and send this info to intruder’s server.
+		\item Next phase is to breach and explore servers to get additional information.
+		\item Final phase is to steal valuable information.
+	\end{itemize}
+	An APT Attack is made with a clear objective. According to the researchers, analyzing these attacks can reveal certain patterns about the attackers. These include features of attack infrastructure, tools (malware), techniques and objective. Such information is called “cyber threat intelligence”. The techniques described in this paper are cyber threat analysis techniques and associated cyber threat intelligence. Some of the techniques used are as follows:
+	\begin{itemize}
+		\item \textbf{Attack Channel Analysis:} Attack Channel is the technique used by an attacker to infect a terminal inside the targeted organization with malware to enable remote operations. This is usually done by sending targeted emails to a terminal in the organization. This email is analyzed to find information such as email source address, Message Subject, Hostname among other things.
+		\item \textbf{Malware Analysis:}This has a three step procedure as follows:
+		\begin{enumerate}
+			\item Surface Analysis - Analyze the file type, file name, characters in file, etc.
+			\item Dynamic Analysis - Running the malware and analyzing its behavior to determine file operation, processes, etc.
+			\item Static Analysis - This involves reverse engineering the malware.
+		\end{enumerate}
+		\item \textbf{C2 Analysis:}  This technique analyzes the C2 server to derive information such as information about IP Address, Location, and Domain Names.
+	\end{itemize}
+	These techniques have led to the standardization of Cyber Threat Intelligence by releasing specifications such as CybOX, STIX and TAXII. Fujitsu’s have come up with a Proactive Defense Model that uses Cyber Threat Intelligence. There are 6 constituent elements of the model and they are as follows:
+	\begin{itemize}
+		\item SIEM (Security Information and Event Management) - Consolidates events from a variety of sensors and logs from diverse information systems and assesses whether incident has occurred on the basis of a specific pattern or cyber intelligence.
+		\item Incident Management - Manages priority and state of incidents and tasks that need to be executed as tickets.
+		\item Artifact storage - Saves artifacts of incidents for use in cyber threat analysis.
+		\item Automated Engine - Performs analysis, response and storage of cyber threat intelligence.
+		\item Cyber threat intelligence Storage environment - Supports CybOX, STIX and TAXII standards.
+		\item Cyber threat Analysis Environment - Analyzes threats to extract new cyber threat intelligence for proactive defense.
+	\end{itemize}
+	As a future work, the researchers plan to make this model more accurate by trying to extract more cyber threat intelligence. Just using this model is insufficient and collaborating with global vendors and communities is essential.
+	
+	\subsection{HookScout: Proactive Binary-Centric Hook Detection}
+	
+	Malware registers its own function (hook) in the target location. Later, the data is registered into EIP and execution is redirected to.malware’s own function. The existing hook detection tools have defeated the older techniques but there are several newer ones evolving. What makes function pointer hooking advantageous for the hackers are the following reasons:
+	\begin{itemize}
+		\item Attack Space is vast with almost 20000 pointers in Windows Kernel.
+		\item It is hard to locate and validate with approximately 7000 in dynamically allocated memory regions. Many of them are in polymorphic data structures which are found in Windows Kernel.
+	\end{itemize}
+	The goal of this technique is as follows: 
+	\begin{enumerate}
+		\item To automatically generate a hook detection policy taking advantage of the binary distribution of the OS Kernel.
+		\item Locate Function Pointers - To deal with polymorphic data structures.
+		\item Validate Function Pointers - Only 3\% ever change in their lifetime. So, a simple policy would be to check if constant pointers ever change.
+	\end{enumerate}
+	HookScout System has the following parts:
+	\begin{itemize}
+		\item Monitor Engine - The goal is to determine the concrete memory layout. It also determines primitive types for each memory word for each static/dynamic object. The monitor engine also tracks function pointers. It also does the following work:
+		\begin{enumerate}
+			\item Running the guest OS within TEMU (Tera-emulator) which is a whole-system binary analysis platform within QEMU (Quick emulator).
+			\item For dynamic objects, it performs hook memory allocation/deallocation routines.
+			\item For static objects, it executes the hook module loading routine.
+		\end{enumerate}
+		\item Inference Engine - It infers the abstract memory layout for which it uses context-sensitive abstraction. Object creation context is the execution context where an object is created (e.g. Malloc creator). Objects created under the same context have the same type. The solution is to merge the concrete layouts with the same context into an abstract layout.
+		\item Detection Engine - Detection Engine enforces the hook detection policy on user’s machine. 
+	\end{itemize}
+	To evaluate the performance of HookScout, various aspects were evaluated such as Attack Space, Analysis Subsystem and Detection Subsystem. No false alarms were raised during the testing period. Following limitations were uncovered after the experimental evaluation:
+	\begin{itemize}
+		\item Coverage - 5 \% of the kernel is not covered which could be exploited by the attackers.
+		\item Detection Interval - Deciding the detection interval is tough. 5 seconds or even a second might be too late when it comes to detecting attacks.
+		\item Uncommon Proprietary Device Drivers - HookScout utilizes QEMU (Quick Emulator) and since other proprietary drivers are never installed, they are not analyzed.
+		\item There are limited test cases for the Dynamic Analysis.
+		\item Kernel Module can be subverted or misled. Hypervisor is preferred for this reason.
+	\end{itemize}
+	Function pointer hooking is a new trend and hard to detect but the researchers have developed HookScout which is proactive, binary-centric and context-sensitive.
+	
+	\subsection{Use of Soft Computing Techniques in Malware Detection}	
+	
+	Soft computing techniques are widely used in malware detection these days. These techniques have the ability of learning from past incidents and categorize normal and abnormal behavior. Malware includes viruses, worms, trojan horses, spyware and adware. In recent times, network attacks are easy to launch as the tools to perform such attacks are present freely on the internet. To overcome this problem, IDS (Intrusion Detection System) is used against malicious activity. An IDS monitors the system and decides if the activity is sign of an attack or normal activity. Various soft computing and machine learning techniques are employed in IDS to detect various attacks. 
+	
+	Some of the techniques are as follows:
+	\begin{itemize}
+		\item Artificial Immune System (AIS) - AIS helps solve complex computational problems. Using learning, feature extraction, and pattern recognition, it offers rich metaphors for its artificial counterpart.
+		\item Fuzzy Set - Fuzzy Logic is a means of modelling the uncertainty of the natural language. The use of fuzzy logic is in two areas - algorithms with learning and adaptive capabilities with the purpose of automatically designing fuzzy rules and to enhance readability of machine learning algorithms such as Support Vector Machines or Hidden Markov Model.
+		\item Artificial Neural Networks (ANN) - ANN learns to predict the behavior of various users and daemons in the system. The main advantage of ANN is the tolerance to incomplete information and ability to infer solutions from the data without prior knowledge of regularities in the data.
+		\item Decision Tree - It is a powerful tool for classification and prediction. It has three main components - nodes, leaves and arcs.
+		\item Support Vector Machines - They are a relatively new supervised machine learning technique. Although the basic technique was conceived for binary classification, several methods for single and multi-class problems have been developed. The usefulness of SVM has been already demonstrated in several fields: like pattern recognition, where it can provide optimal statistical classification by means of properly chosen decision functions.
+		\item Other techniques - These include genetic algorithms, Evolutionary Algorithms, Swarm Intelligence.
+	\end{itemize}
+	Malware Detection using Soft Computing Techniques is primarily classified in three categories:
+	\begin{itemize}
+		\item Misuse/Signature Detection - Researchers have developed many techniques based on detecting signature of a malware. Some are:
+		\begin{enumerate}
+			\item Signature Verification with SVM - Buffer Overflow Vulnerabilities are exploited by worms which can be handled with network-based Length-based Signature Generator (LESG).
+			\item Signature Tree Generation - Network-based Generation has been proposed as a way to automatically and quickly generate signatures for worms, especially polymorphic worms. PolyTree, an NSG system is composed of two sections - signature tree generator and signature selector.
+			\item Logical Expression Testing Criteria - Decision Support has problems in accurately identifying attacks. Recognizing that signatures in essence provide the specification of an IDS engine, studying the accuracy of an IDS engine becomes a black-box testing problem.
+			\item F-Sign - F-Sign is designed for extracting unique signatures from malware files automatically. Malicious executable is analysed using two approaches: disassembly, utilizing IDA-Pro, and the application of a dedicated state machine in order to obtain the set of functions comprising the executable.
+			\item Bayesian Network - It is used for intrusion detection. The flexible nature Bayesian network allows it to be used both for misuse-based and anomaly-based detection process.
+			\item Semantic aware Signature Generation - String extraction and matching techniques have been widely used in generating signatures for worm detection, but how to generate effective worm signatures in an adversarial environment still remains a challenging problem. Semantics Aware Statistical (SAS) algorithm have been proposed for automatic signature generation.
+		\end{enumerate}
+		\item Anomaly Detection - Anomaly Intrusion Detection (IDs) strategy considers abnormal behaviour is rare and tries to model normal rather than anomalous behaviour. Researchers do a lot of work in anomaly detection. Specifically, they use machine-learning algorithm to classify fixed-length patterns generated via sliding window technique to infer the classification of variable length patterns from the aggregation of the machine learning based classification results. Some other techniques proposed by researchers are Feature-Aided Tracking with Hidden Markov Models. Histogram-Based Traffic Anomaly Detection. Anomaly Detection through a Bayesian Support Vector Machine.
+		\item Hybrid Detection - Signature based detection system can only detect attacks which are known to system and signatures are defined. Anomaly based detection has higher False-Positive rate. These techniques can be combined to give better results. This combined technique is known as Hybrid detection scheme. A hybrid model is used not only to correlate alerts as accurately and efficiently as possible but also to be able to boost the model in the course of time.
+	\end{itemize}
+The network data is very large, heterogeneous, highly varying and imbalanced. Real time anomaly detection approaches with high accuracy and low false positive rate are required.
+	
+	\subsection{A Study of Network Intrusion Detection Based on Proactive Mechanism}
+	
+	In this paper, the researchers presented the tools and techniques used to protect the networks and its associated resources and requirements for the proactive network intrusion detection mechanism which should be placed in line with the current intrusion detection system to protect the entire network. Though the general impression is the growing cyber security awareness among the masses, but the advanced hacker techniques and sophistication seems to counter the defensive mechanisms easily and fool the users. The malwares propagating in network have become the biggest threat to the increasing internet. \\ \\
+	Countermeasures like firewalls or anti-anything (antivirus, anti-spam, anti-spyware, etc.) are all reactive security tools. They are necessary countermeasures and a part of a comprehensive security system, but you must also take action, be proactive, to ensure the highest level of network security. There is a need to put the place a security mechanism to analyse malicious activity without having rely on the traditional signature based tools. To strengthen these signatures based tools and to manage these tools, there is a need to react proactively so that the analysis of the malicious codes can be performed and signatures for the security can be performed. This research will explain the use of proactive security defence mechanism based on different tools and techniques which help in the creation of a tested that would help in testing and identifying the weakness of a network. There are various types of malwares such as Virus, Worms, Trojans, Spyware, Adware and Rootkits. Most recent operating systems come with built in and “enabled by default” firewall package. Starting with Windows XP service pack 2 and since, firewall has been enabled by default on all Microsoft operating systems. Antivirus software is the basic security tool installed in end user computer. They mostly rely on signature based detection where executable files are matched against a signature database of known viruses. New versions have run-time scanning feature that scans the file in real time and avoids execution, if a threat is detected. Signature based detection however results in the antivirus engine failing to detect variants of known viruses, therefore a constant update of antivirus signature database is essential to provide basic protection.\\ \\
+	One promising approach to improve network defense is the use of honey pots, a closely monitored computing resource that we want to have probed, attacked or compromised. More precisely, a honeypot is "an information system resource whose value lies in monitoring unauthorized or illicit use of that resource" Honey pots can run any operating system and any number of services. The configured services determine the vectors available to an adversary for compromising or probing the system. Honeypots can be broadly classified into two types - Server and Client Honeypots. Further both of them are classified each into Low interaction and High Interaction Honeypots. Low Interaction Honeypots emulate a variety of host services. In a High Interaction Honeypot, the attacker is given the freedom to interact with a real operating system and their every attempt is logged and accounted for. The second Honeypot category is also classified based on the way they are deployed in a network as follows:
+	\begin{itemize}
+		\item Production Honeypots - They are placed within an organization’s production network for the purpose of detection. They extend the capabilities of intrusion detection systems.
+		\item Research Honeypots - These are deployed by network security researchers – the white hat hackers. They allow complete freedom for the attacker and, in the process; it is possible to learn their tactics.
+	\end{itemize}
+	The researchers then talk about the way the honeypots are deployed with the design and process flow and conclude by proposing the system of honeypots which is able to detect the malware programs with the help of honeypot as well as by applying the intelligent forensic investigation of the collected network PCAP (Packet Capture) data.
+	
+	\subsection{Behavior-based Proactive Detection of Unknown Malicious Codes}
+	
+	Malicious code is defined as any program that is specifically coded to cause an unexpected (and usually) unwanted event on a User’s PC or Server. There are several types of malware such as Adware, Spyware, Virus, Worms, etc. The antivirus technologies that are present currently are Signature-based scanning,	Heuristic analysis, Cyclic redundancy check (CRC) scanner, Vaccination technology, Behavior blockers, Immunizers, Snapshot technology and Sandbox technology.\\ \\
+	There has been an increase in the amount of malicious codes along with polymorphism and metamorphism in malicious codes. Researchers have to deal with any reported unknown malicious code by manual analysis, and then denote a signature for it and update the virus database. This paper tries to establish an automatic mechanism to assistant classifying and identifying unknown malicious codes. There are two types of behavioral analysis techniques. One is static analysis in which the binary code is disassembled and the functions of the program are analyzed without executing it. The second one is dynamic analysis in which we analyze the code during runtime. Malicious behavior can be categorized as File-related behavior, Process-related behavior, Window-related behavior, Network-related behavior, Register-related behavior and Windows service behavior.\\ \\
+	The paper then describes the analysis methods particularly, Statistic-based method and MoE (Mixture of Experts) Neural Network Model. Two experiments were conducted where the MoE model showed a better performance although both did not get the detection rate to 100\%. Ultimately, the researchers concluded that a single method cannot get the best result.  The detection rate did not reach 100\% because definition of malicious codes changes with users. As a future research, a larger data set was proposed for the experiment and finding other ways to improve proactive detection.	
 	
 	\section{Tasks Completed}
 	This section talks about specific tasks completed by each group member till date.
@@ -407,7 +523,7 @@ The above example inspires us with the need to be aware about cyber security and
 			10 & Kunal Bansal & Dynamic Malware Analysis\\
 			\hline
 	\end{tabular}\\
-	\caption{Table 1: Research Areas} \label{table: Research Areas}
+%	\caption{Table 1: Research Areas} \label{table: Research Areas}
 	\end{center}
 	\begin{center}
 		\begin{tabular}{cccc}
@@ -433,7 +549,7 @@ The above example inspires us with the need to be aware about cyber security and
 			9 & Compiling the final survey report & Week 11 till 27th March & TBD\\
 			\hline
 		\end{tabular}\\
-	\caption{Table 2: Project Timeline} \label{table: Project Timeline}
+%	\caption{Table 2: Project Timeline} \label{table: Project Timeline}
 	\end{center}
 \bibliographystyle{plain}
 \bibliography{biblio}
