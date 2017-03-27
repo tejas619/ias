@@ -19,6 +19,13 @@
 \usepackage{textpos}
 \usepackage{enumitem}
 \usepackage[linguistics]{forest}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+
+\usepackage{geometry}
+\usepackage{lscape}
+\usepackage{graphicx} 
+\usetikzlibrary{external,automata,trees,positioning,shadows,arrows,shapes.geometric}
 
 \setlength{\textheight}{220mm}
 \setlength{\textwidth}{160mm}
@@ -97,12 +104,13 @@ The above example inspires us with the need to be aware about cyber security and
 \section{Overview}
 This section talks about specific tasks completed by each group member till date.
 \subsection{Tejas Khairnar (1207690220, Group Leader)}
-I, as the group leader, am organizing weekly meetings with the whole team. My duties include keeping a check on work done by every group member.
+I, as the Group Leader, am organizing weekly meetings with the whole team. My duties include keeping a check on work done by every group member.
 I am also helping everyone with finding good papers in the area of 'Malware Analysis Techniques'. Apart from that I have also been reading the research paper "Toward automated dynamic malware analysis using cwsandbox"~\cite{willems2007toward}. \\
 I summarized the paper ~\cite{willems2007toward} and studied a research survey on automated malware analysis techniques ~\cite{egele2012survey}. Besides this I worked on the compilation of the whole report in \LaTeX as per project guideline requirements. I made sure that the format of the report is crisp and according to the submission guidelines. I majorly worked on the results section and the story behind the whole paper. 
 
 \subsection{Sujay Vaishampayan (1209248166, Deputy Group Leader)}
-		
+I, as the Deputy Group Leader, help the Group Leader in organizing weekly meetings and making sure that deadlines are met. I also helped the members of our group by guiding them on how to write their part of the report. As far as my research category goes, I have studied all the tools which help to perform Malware Analysis using Hardware Virtualization Extensions. This included a detailed description of the tools developed over the years starting from Ether~\cite{dinaburg2008ether} to the latest one which is DRAKVUF~\cite{lengyel2014scalability}. I covered different ways to leverage hardware virtualization to perform malware analysis ranging from tools external to the guest operating system such as V2E~\cite{yan2012v2e} and SPIDER~\cite{dongyan2013spider} to techniques which involve observing the guest operating system from within itself such as Process Implanting~\cite{jiang2011procimplant}. I have extensively covered almost every popular tool in this category of malware analysis and have gained immense knowledge from the same.
+
 
 \subsection{Zhibo Sun(1207644187)}
 
@@ -130,6 +138,8 @@ My work during the whole project was to read and understand the concept of Dynam
 
 
 \subsection{Kunal Bansal (1211213169)}
+
+
 
 \subsection{Raj Dalvi (1209232176)}
 I worked with my team to ensure that all the deliverables were submitted on time. The domain that I chose for this purpose was Proactive Malware Detection. Traditional Malware Analysis techniques tend to be a step behind the attackers. This domain seeks to devise an automated technique to eliminate various malware proactively. The paper I chose initially was Siren: Catching Evasive Malware. The paper elaborates on a tool called Siren, an activity injection system which intends to fool malicious attackers
@@ -741,7 +751,7 @@ The network data is very large, heterogeneous, highly varying and imbalanced. Re
 			10 & Kunal Bansal & Techniques to prevent IT network from Malwares\\
 			\hline
 		\end{tabular}
-	\caption[\titlecap{Research Areas}]{Research Areas}
+%	\caption[\titlecap{Research Areas}]{Research Areas}
 	\label{tab:Research_Areas}
 	\end{table}
 
@@ -770,9 +780,30 @@ The network data is very large, heterogeneous, highly varying and imbalanced. Re
 			9 & Compiling the final survey report & Week 11 till 27th March & Completed\\
 			\hline
 		\end{tabular}
-	\caption[\titlecap{Project Time-line}]{Project Time-line}
+%	\caption[\titlecap{Project Time-line}]{Project Time-line}
 	\label{tab:timeline}
 	\end{table}
+	
+	
+	\begin{landscape}
+		%\parindent=0pt
+		%\eject\null
+		%\vfill
+		%\hspace*{-4cm}
+		\begin{tikzpicture}
+	
+	\Tree [.Malware\ Analysis 
+	[.Hardware\ Virtualization [.Ether ] [.Process\ Implanting ] [.V2E ][.SPIDER ][.DRAKVUF ]] [.Static\ Analysis ]
+	[.Dynamic\ Analysis [.Sandbox ][.MEP ][.Bypass\ Stalling\ Code ][.BareCloud\ System ][.Evasion\ Signatures ]]
+	[.Reverse\ Engineering [.DREAM ][.DREAM++ ][.REWARDS ][.HERESy ][.Rotalume ][.COBRA ][.MEF ][.OmniUnpack ][.FilePrints ]]
+	[.IT\ Network\ Protection [.Distributed\ IDS ][.SNORT ][.Using\ SDN ][.Deviations\ in\ Network\ Behavior ][.Network\ IDS ] ]
+	[.Analysis\ in\ Android [.Andromaly ][.AppsPlayground ][.DroidScope ][.MamaDroid ]]
+	[.Proactive\ Defense [.Cyber\ Threat\ Analysis ][.HookScout ][.Threat\ Intelligence ][.Public\ Dynamic\ Analysis ][.SONICWALL ][.Soft\ Computing ][.NIDS\ using\ proactive\ mechanism ][.Behavior\ based ]]
+	]
+	\end{tikzpicture}%
+	%\hfill
+	%\vfill
+	\end{landscape}
 \bibliographystyle{plain}
 \bibliography{biblio}
 \end{document}
