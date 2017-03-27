@@ -30,24 +30,47 @@
 \titlespacing{\subsection}{0pt}{*2.0}{*1.6}
 \titlespacing{\subsubsection}{0pt}{*1.6}{*1.2}
 
-\newcommand{\fulltitle}{Malware Analysis for Proactive Detection and Prevention\xspace}
+\newcommand{\fulltitle}{\textbf{Malware Analysis for Proactive Detection and Prevention\xspace}}
 \title{\fulltitle}
-\author{Tejas Khairnar (1207690220, Group Leader) \\Sujay Vaishampayan (1209248166, Deputy Group Leader)\\  Zhibo Sun(1207644187)\\Harshil Maskai (1209174092)\\ Aloma Lopes (1209273126)\\ Chaitanya Palaka (1209261868)\\ Varun Chandrasekar (1209248010) \\ Kunal Bansal (1211213169) \\ Raj Dalvi (1209232176) \\ Vimal Vadivelu (1209203043)\\ \\
-		Arizona State University}
+\date{}
+%\author\textit{Tejas Khairnar (1207690220, Group Leader) \\Sujay Vaishampayan (1209248166, Deputy Group Leader)\\  Zhibo Sun(1207644187)\\Harshil Maskai (1209174092)\\ Aloma Lopes (1209273126)\\ Chaitanya Palaka (1209261868)\\ Varun Chandrasekar (1209248010) \\ Kunal Bansal (1211213169) \\ Raj Dalvi (1209232176) \\ Vimal Vadivelu (1209203043)\\ \\
 
 \begin{document}
 	\begingroup
-		\fontsize{15pt}{15pt}\selectfont
+		\fontsize{20pt}{20pt}\selectfont
 		\begin{center}
-			CSE 543 Information Assurance and Security \\~\\
-			Interim Report
+			Arizona State University \\~\\
+			CSE 543 Information Assurance and Security
 		\end{center}
 	\endgroup
-	%{\let\newpage\relax\maketitle}
+	{\let\newpage\relax\maketitle}
+	\begingroup
+	\fontsize{15pt}{15pt}\selectfont
+	\begin{center}
+		\textit{Tejas Khairnar (1207690220, Group Leader) \\Sujay Vaishampayan (1209248166, Deputy Group Leader)\\  Zhibo Sun(1207644187)\\Harshil Maskai (1209174092)\\ Aloma Lopes (1209273126)\\ Chaitanya Palaka (1209261868)\\ Varun Chandrasekar (1209248010) \\ Kunal Bansal (1211213169) \\ Raj Dalvi (1209232176) \\ Vimal Vadivelu (1209203043)\\ \\}
+	\end{center}
+	\endgroup\\~\\
+	\begin{abstract}
+		\textbf{\textit{There are multitude of potentially malicious samples out there in the wild. The signatures for these malwares are mainly created manually. This creates a semantic gap while detecting known piece of malware and unknown pieces of malwares. This survey article provides an overview of various techniques used to perform malware analysis, detect and prevent them. It also covers various strategies to detect these malwares pro-actively and be one step ahead of the attackers.}}
+	\end{abstract}\\~\\
+		\begingroup
+		\fontsize{10pt}{10pt}\selectfont
+			\begin{center}
+				Spring 2017, Group \#2 \\~\\
+				March 27, 2017
+			\end{center}
+		\endgroup
+
+
+	\newpage
 	\tableofcontents
+	\newpage
 	% This puts the word "Page" right justified above everything else.
 	\addtocontents{toc}{~\hfill Page\par}
-	
+	\listoftables
+	\newpage
+	\listoffigures
+	\newpage
 	\section{Introduction}
 	\subsection{Background and Motivation}
 	In today’s world connected by the Internet, cyber security has become a major concern. In order
@@ -684,9 +707,13 @@ The network data is very large, heterogeneous, highly varying and imbalanced. Re
 	
 	
 
-	\section{Results}
-	Till now we have distributed various areas of Malware Analysis Techniques and proactive detection \& prevention amongst the group members. This distribution was done after every group member summarized their first research paper read about Malware Analysis. Every group member is taking equal efforts in understanding the topic they are working on and summarizing their work.\\ 
-	Table 1 shows various focus areas each group member is working on. Table 2 shows our project timeline we are trying to follow in order to complete our work in timely manner.
+	\section{Conclusion and Recommendations}
+	\subsection{Tree Structure of Techniques}
+	After studying a part of the extensive literature on Malware Anlaysis techniques, proactive detection and prevention we came to a conclusion to make a tree structure about various techniques and tools we studied. This structure is presented in the diagram. It gives a precise idea of the whole survey article. When we started of with this project we together came up with this idea and making this as our major result. 
+	As we can see the root node of this tree is our topic and the children are followed according to our project goals and literature studied on the topic.
+	
+	\subsection{Research topics surveyed}
+	In this section we describe various research topics we surveyed as a group. During our initial paper review at the start of the project, every member picked a research paper published in well known conference recently. Post that review we decided to continue our study on these topics individually. Table below summarizes these research topics 
 	\begin{table}
 		\centering
 		\begin{tabular}{ccc}
