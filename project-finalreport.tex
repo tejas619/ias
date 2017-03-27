@@ -18,10 +18,10 @@
 \setpapersize{USletter}
 \usepackage{textpos}
 \usepackage{enumitem}
-\usepackage[linguistics]{forest}
 \usepackage{tikz}
 \usepackage{tikz-qtree}
-
+\usepackage{rotating}
+\usepackage{float}
 \usepackage{geometry}
 \usepackage{lscape}
 \usepackage{graphicx} 
@@ -29,13 +29,14 @@
 
 \setlength{\textheight}{220mm}
 \setlength{\textwidth}{160mm}
-\evensidemargin=1.1in
+\evensidemargin=0.5in
 \oddsidemargin=1.1in
 \topmargin=0.45in
 \usepackage[compact,noindentafter]{titlesec}
 \titlespacing{\section}{0pt}{*2.4}{*1.8}
 \titlespacing{\subsection}{0pt}{*2.0}{*1.6}
 \titlespacing{\subsubsection}{0pt}{*1.6}{*1.2}
+\renewcommand{\baselinestretch}{1.25}
 
 \newcommand{\fulltitle}{\textbf{Malware Analysis for Proactive Detection and Prevention\xspace}}
 \title{\fulltitle}
@@ -54,12 +55,12 @@
 	\begingroup
 	\fontsize{15pt}{15pt}\selectfont
 	\begin{center}
-		\textit{Tejas Khairnar (1207690220, Group Leader) \\Sujay Vaishampayan (1209248166, Deputy Group Leader)\\  Zhibo Sun(1207644187)\\Harshil Maskai (1209174092)\\ Aloma Lopes (1209273126)\\ Chaitanya Palaka (1209261868)\\ Varun Chandrasekar (1209248010) \\ Kunal Bansal (1211213169) \\ Raj Dalvi (1209232176) \\ Vimal Vadivelu (1209203043)\\ \\}
+		\textit{Tejas Khairnar (1207690220, Group Leader) \\Sujay Vaishampayan (1209248166, Deputy Group Leader)\\  Zhibo Sun(1207644187)\\Harshil Maskai (1209174092)\\ Aloma Lopes (1209273126)\\ Chaitanya Palaka (1209261868)\\ Varun Chandrasekar (1209248010) \\ Kunal Bansal (1211213169) \\ Raj Dalvi (1209232176) \\ Vimal Vadivelu (1209203043)}
 	\end{center}
-	\endgroup\\~\\
+	\endgroup
 	\begin{abstract}
 		\textbf{\textit{There are multitude of potentially malicious samples out there in the wild. The signatures for these malwares are mainly created manually. This creates a semantic gap while detecting known piece of malware and unknown pieces of malwares. This survey article provides an overview of various techniques used to perform malware analysis, detect and prevent them. It also covers various strategies to detect these malwares pro-actively and be one step ahead of the attackers.}}
-	\end{abstract}\\~\\
+	\end{abstract}
 		\begingroup
 		\fontsize{10pt}{10pt}\selectfont
 			\begin{center}
@@ -138,6 +139,7 @@ My work during the whole project was to read and understand the concept of Dynam
 
 
 \subsection{Kunal Bansal (1211213169)}
+I was responsible for researching how malware attacks can be prevented  or detected using network analysis. The idea was to do malware analysis in different environment, like, host based systems, distributed systems, cloud and mobile devices. I learnt about different intrusion detection systems and vulnerabilities in each of these. I learnt about Distributed Intrusion Detection systems~\cite{snapp1991dids} that adds another layer of security in current distributed system architecture. I also learnt about malware analysis in mobile devices using network traffic analysis~\cite{rossow2011sandnet} to prevent advanced threats. I learnt about advanced malware analysis in cloud using software defined networking~\cite{kim2013improving}. I was able to learn the different malware prevention and detection techniques in a network system in multiple environment.
 
 
 
@@ -214,7 +216,18 @@ by mocking human actions so the attacker will focus on them instead of the actua
 	In traditional software breakpoints, a 1-byte instruction (INT3) is executed which triggers a Breakpoint exception, thus switching the flow of control to the hypervisor where the malware analysis tool lies. The drawback in this situation is that the malware can easily detect that the instructions have been modified to switch execution control to the hypervisor and it will hide its presence. The other method is to utilize hardware breakpoints to trigger breakpoints, however, it is possible to use up all hardware breakpoints via software programming, thus leaving the debugger with no available hardware debuggers to use. SPIDER follows four principles to remain undetected in the presence of malware. They are flexibility, efficiency, transparency and reliability. In order to maintain transparency, SPIDER utilizes the Extended Page Table (EPT) to split the code and data views. If a breakpoint needs to be triggered, then only the code view of the guest is modified and the data view is left as it is. Thus, the guest cannot find a difference in the instruction as the code view is inherently modified. Once the breakpoint is triggered, the exception handler handles the exception transparently such that the flow of control in the guest would be same as that without a breakpoint. Also, it modifies the code and data view as it would be without the breakpoint in order to ensure transparency and makes sure that the guest cannot overwrite the breakpoint by making use of higher privileges than the rest of the guest system. SPIDER splits the code and data view by mapping them to two different host physical pages with ‘mutually exclusive attributes’. The code view is executable but cannot be read and the data view is readable but cannot be executed. Writing is disabled on the both the code and data views to enable easy breakpoint handling and to ensure that no malicious program interferes with the execution of the program. As in order implementations of tools that utilize hardware virtualization extensions, the breakpoint handling is always done by the Virtual Machine Monitor in order to ensure transparency and so that the malware cannot detect presence of an external entity that is monitoring the system. \\ \\
 	Since writing to the code and data view is disabled, when the malware in the guest operating system tries to write to the data view, it will receive an error and will not be able to write. The malware can then easily figure out that it is being tracked and will hide its presence. Thus, SPIDER synchronizes changes from the data view with the code view so that the malware cannot detect the presence of an analyzer. SPIDER captures the EPT violations and records the length of the data to be written and the address it is to be written at. It then makes the appropriate modifications to the code view. Any breakpoints that were added to the code view need to be updated if they were overwritten or if they are not meaningful any more. Since handling of breakpoints triggers the flow of control to bounce back and forth between the hypervisor and guest system, there are timing issues that may arise which may be leveraged by the malware to detect the presence of an analyzer. The solution implemented by the authors involves tracking the Time Stamp Counter (TSC) and hides the CPU cycles spent in transferring the control back and forth and thus, the guest believes that it did not lose any time. The authors have implemented SPIDER on the KVM hypervisor.
 	The SPIDER malware analysis tool was pit against OllyDbg and IDA Pro in order to monitor its performance and if the malware can detect its presence or not. After executing a process ‘hostname.exe’, which stores the string of the name of the host and also has anti-instrumentation and anti-debugging code built in to it, OllyDbg and IDA Pro failed to Trap the string successfully, where as SPIDER was able to as it ran undetected. On running performance evaluations, the original KVM implementation ran a 98.7MB file in 4171 ms while the KVM implementation with SPIDER ran the same file in 4192 ms. This shows that this is one of the fastest malware analysis tools which utilizes hardware virtualization extensions as of 2013. It provides multiple advantages over ‘Ether’ and ‘V2E’ as mentioned earlier and has efficiency similar to that of DRAKVUF. This may well be one of the best external malware analysis tools so far and in the future many more will be developed. \\ \\
-	In this section, we have seen multiple tools that perform malware analysis via hardware virtualization extensions. We have seen how the first successful tool ‘Ether’ performed and the modifications that were made to create more efficient and robust tools like ‘DRAKVUF’ and ‘SPIDER’. This area of malware analysis is still under research and with the development of the cloud environment and continuous enhancement of the current virtualization systems, many more advanced tools will be released in the future. Compared to traditional methods to monitor malware, hardware virtualization might be the way to go currently as a lot of computation is being shifted to the cloud. The drawback of these techniques is that you need to have access to the entire memory of the guest system from the host which means that the memory needs to be on the same system as the host. However, in the future implementations will be released where the system where the host resides will be different than the location of the guest memory and it could be accessed via a Software Defined Network.
+	In this section, we have seen multiple tools that perform malware analysis via hardware virtualization extensions. We have seen how the first successful tool ‘Ether’ performed and the modifications that were made to create more efficient and robust tools like ‘DRAKVUF’ and ‘SPIDER’. This area of malware analysis is still under research and with the development of the cloud environment and continuous enhancement of the current virtualization systems, many more advanced tools will be released in the future. Compared to traditional methods to monitor malware, hardware virtualization might be the way to go currently as a lot of computation is being shifted to the cloud. The drawback of these techniques is that you need to have access to the entire memory of the guest system from the host which means that the memory needs to be on the same system as the host. However, in the future implementations will be released where the system where the host resides will be different than the location of the guest memory and it could be accessed via a Software Defined Network.\\
+	As a conclusion we make a tree structure of various techniques employed by Hardware virtualization technique. This can be described as follows:\\
+	\begin{figure}
+			\centering
+			\begin{tikzpicture}	
+		\Tree  
+		[.Hardware\ Virtualization [.Ether ] [.Process\ Implanting ] [.V2E ][.SPIDER ][.DRAKVUF ]]
+		\end{tikzpicture}
+				\caption{Malware Analysis using Hardware Virtualization techniques}\label{tab:hardware-virtulization}
+	\end{figure}
+
+
 	
 	\subsection{Static Malware Analysis}
 	\subsection{Dynamic Malware Analysis}
@@ -267,7 +280,15 @@ by mocking human actions so the attacker will focus on them instead of the actua
 		Malware escapes analysis by gathering information about its environment and then performing some comparisons and calculations on the gathered information to decide whether to evade or not. This information consists basically of system call events, user API call events and comparison events that eventually forms the evasion signature. The sample is analyzed in two different execution environments, one in which it evades and shows malicious activity in the other. The system call sequences of the two samples are aligned and checked for deviation. The point of deviation represents the evasion point. This is where the sample performs it’s evasion check from where the evasion signature is extracted. All the strategies given in ~\cite{kirat2014barecloud} to avoid deviations caused by external factors are taken care of. Sequence alignment algorithms from bioinformatics are used for checking deviations in the sequence alignments. Global Alignment and Local Alignment approach are used to sequence the alignment. The global alignment algorithms compare the entire subsequences and therefore the alignment spans the entire length of the subsequence, whereas the local alignment finds matches of local subsequences in the two subsequences. The local approach is better when there are large missing parts in the sequence. Finding a similarity score between the subsequences is one of the important parts to understand match and mismatch of system calls. Importance of arguments associated with system calls, importance of alignment of some system calls over the others and many other factors lead to the proposal of a similarity scoring schema to calculate the similarity between two system calls. Also, the gap penalty schema is decided to calculate the gap penalty score which helps identify gaps introduced by evasion. Repeated short subsequences due to looping are discarded if they repeat more than five times.
 		An evasion section is chosen consisting of system calls, API calls and comparison events before the evasion point. The inverse document frequency metric is used to filter out the call events from the evasion section that are too frequent in non-evasive malware. The Anubis emulator is used to generate the execution profile of the malware and the system call sequence is extracted from the environment that the malware has evaded. The comparison events are then extracted from the evasion section and the call events filtered using inverse document frequency represent the final evasion signature. These evasion signatures are then hierarchically clustered using complete-linkage method and Jaccard similarity.
 		The limitation of the approach is that due to the requirement of system call sequences from the analysis environment we cannot use bare-metal execution. This technique was evaluated on 2810 evasive samples and by extracting the evasion signatures, it grouped the samples into 78 evasion techniques. Thus, MALGENE allows us to extract evasive signatures from evasive malware that could be used to prevent evasion of malware from dynamic detection systems.
-
+		As a conclusion we make a tree structure of various techniques employed by Dynamic Malware Analysis. This can be described as Figure~\ref{Dynamic}
+		\begin{figure}
+			\centering
+				\begin{tikzpicture}
+			\Tree
+			[.Dynamic\ Analysis [.Sandbox ][.MEP ][.Bypass\ Stalling\ Code ][.BareCloud\ System ][.Evasion\ Signatures ]]
+			\end{tikzpicture}
+			\caption{Dynamic Malware Analysis Techniques}\label{Dynamic}
+		\end{figure}
 
 	\subsection{Malware Reverse Engineering}
 	In the literature survey below we will be exploring concepts like malware reverse engineering and the common terminologies used, the advantages of automatic reverse engineering etc. We will start off by exploring the current industry leader in decompilation i.e. Hex-Rays and its enhanced versions like DREAM~\cite{yakdan2015no} and DREAM++~\cite{yakdan2016helping}. We will also be diving deep into the working of some of these state-of-the-art decompilers~\cite{guilfanov2008decompilers} and the techniques used by them. Further , we will expand our scope and see how honeypots can be leveraged to perform reverse engineering and lastly we will try to understand how attackers obfuscate their malware which makes decompiling them harder and how we can reverse engineering such malwares. We now proceed to talk a bit about decompilers and how they can aid in malware reverse engineering and if they are better than dissassemblers/debuggers.\\ \\
@@ -443,13 +464,22 @@ by mocking human actions so the attacker will focus on them instead of the actua
 			\item Truncation: Truncation simply means we model only a fixed portion of a file when computing a byte distribution. For most files, it can be assumed that the most relevant part of the file, as far as its particular type, is located early in the file to allow quick loading of meta-data by the handler program that processes the file type. This avoids analyzing a good deal of the payload of the file that is not relevant to distinguishing their type and that may be similar or identical to several different file types.
 			\item Multiple Centroids: files with the same extension do not always have a distribution similar enough to be represented by a single model. clustering strategy. Rather than computing a single model MA for files of type A, we compute a set of models MkA , k>1.The multiple model strategy requires a different test methodology, however. During testing, a test file is measured against all centroids to determine if it matches at least one of the centroids. The collection of such centroids is considered a fileprint for the entire class. The multiple model technique creates more accurate models, and separates foreign files from the normal files of a particular type in more precise manner. In this paper, the multiple models are computed by the K-Means algorithm under Manhattan distance.
 		\end{itemize}
-		The experiments that were performed utilized 2 groups of data sets, each containing different file types and during computation some of them seemed to have very similar 1-gram distributions. Only files of similar size were compared as well. Next the entire and truncated files were used to find out how well they file type could be identified by the fileprint. It turned out that very few files were misclassified while using truncated files in a one-centroid file type model accuracy. Next multi-centroids file type classifying techniques showed better results with almost a 6-7\% increases for certain truncation sizes. Finally each file was tested against the distribution of randomly chosen set of exemplar files and the general consensus was that the results in terms of average accuracies was better than the previous two methods.
+		The experiments that were performed utilized 2 groups of data sets, each containing different file types and during computation some of them seemed to have very similar 1-gram distributions. Only files of similar size were compared as well. Next the entire and truncated files were used to find out how well they file type could be identified by the fileprint. It turned out that very few files were misclassified while using truncated files in a one-centroid file type model accuracy. Next multi-centroids file type classifying techniques showed better results with almost a 6-7\% increases for certain truncation sizes. Finally each file was tested against the distribution of randomly chosen set of exemplar files and the general consensus was that the results in terms of average accuracies was better than the previous two methods.\\
+		As a conclusion we make a tree structure of various techniques employed by Malware Reverse Engineering. This can be described as Figure~\ref{Reverse}\\
+		\begin{figure}[b]
+			\centering
+				\begin{tikzpicture}
+			\Tree
+			[.Reverse\ Engineering [.DREAM ][.DREAM++ ][.REWARDS ][.HERESy ][.Rotalume ][.COBRA ][.MEF ][.OmniUnpack ][.FilePrints ]]
+			\end{tikzpicture}
+			\caption{Malware Reverse Engineering Techniques}\label{Reverse}
+		\end{figure}
 
 
 	\section{Techniques to prevent IT Networks from Malwares}
 	\subsection{Distributed Intrusion Detection System}
 	With the development and accessibility to new and cheaper technology, there is a proliferation of heterogeneous computer networks which may add difficulty to intrusion detection system. With greater connectivity, the outsiders have more opportunity for accessing vulnerable systems and insiders can avoid detection. Secondly, Network user identification problem where a user can move across systems to defy the current Intrusion detection system's adds another level of attack vector. Problem with using a single point of audit is that multiple host computers can produce large amount of data which needs to be analyzed by a single IDS (Intrusion Detection System) machine and creates an overhead. The attacks that a normal IDS can’t detect includes, an attacker trying to discover insufficiently protected system where the attack activity is lower than the once that can be detected by IDS, i.e. Using the technique of diffusion. Secondly, an attacker can try to access the files using multiple compromised hosts, which can have detected when data from multiple sources is aggregated and correlated. There is always a trade-off between sending limited data from host to IDS versus an attack that could be missed.
-	The Distributed Intrusion Detection System architecture combines distributed monitoring, data reduction and centralized data analysis. A Distributed Intrusion Detection System has following features:
+	The Distributed Intrusion Detection System architecture~\cite{snapp1991dids}combines distributed monitoring, data reduction and centralized data analysis. A Distributed Intrusion Detection System has following features:
 	\begin{itemize}
 		\item The host and LAN monitors are used to collect evidence of unauthorized or suspicious activities and DIDS director is responsible for analysis of collaborated data
 		\item The architecture is responsible for monitoring bidirectional communications between DIDS director and host machines, which includes notable events and anomaly reports. The director can access more detailed report based on an event and can also update monitoring capabilities on individual hosts.
@@ -467,7 +497,7 @@ by mocking human actions so the attacker will focus on them instead of the actua
 	Using the Distributed Intrusion Detection System, we can leverage LAN structure to monitor user behavior for attacks against the system and can identify attackers moving across multiple host machines using segregation and aggregation of data from multiple host machines. Also, filtering data at hosts provide optimized learning of the Expert System. This system can be extended to large networks.
 	\subsection{SNORT}
 	Most of the current Network Intrusion Detection systems (NIDS) for malware analysis face the basic problem that the updates are released at regular intervals of time and malwares are detected or analysed at uneven intervals of time as a result of which systems are vulnerable for phases or intervals. The customers have to wait for vendors to release updates to the vulnerabilities. Secondly, Commercial Network Intrusion Detection Systems are very expensive which makes them inefficient for smaller business networks and devices. With the imminent growth of Internet of Things (IoT) devices there is a need of lighweight and cross platform resources.
-	Snort is a lightweight and cross platform NIDS that can be used for both monitoring network packet data and create an inference based on the traffic to define an attack. The administrator can take define suitable actions, manually or automatically, based upon the alerts.
+	Snort~\cite{roesch1999snort} is a lightweight and cross platform NIDS that can be used for both monitoring network packet data and create an inference based on the traffic to define an attack. The administrator can take define suitable actions, manually or automatically, based upon the alerts.
 	A Snort system consists of following components:
 	\begin{itemize}
 		\item The Packet Decoder
@@ -518,9 +548,17 @@ by mocking human actions so the attacker will focus on them instead of the actua
 	\end{itemize}
 	This framework works on the following components. Network Intrusion Detection System agent, is used to sniff traffic across the bridges in a cloud server. VM profiler, creates an attack graph for the infrastructure, populating specific alert in NICE agent and records the traffic pattern in a network controller. Attack Analyzer, provides attack correlation and analysis operation based upon the attack graph and logs the threat information to the network controller based on analysis. Network Controller, implements the counter measure based upon the data from attack analyzer by virtual network reconfiguration using the OpenFlow protocol.
 	The technique provides a Sandnet system for data collection using network analysis which can be used for prolonged period of time. A network activities overview of 100,000 malwares and augment the data with previous efforts. And an in-depth analysis of DNS and HTTP traffic to define protocol specific usage behaviours of malware. 
+	As a conclusion we make a tree structure of various techniques employed by malware detection strategies in IT networks. This can be described as Figure~\ref{Networks}\\
+	\begin{figure}[H]
+		\centering
+			\begin{tikzpicture}
+		\Tree
+		[.Prevent\ IT\ Newtorks [.DIDS ] [.SNORT ] [.Mgmt\ with\ SDN ][.Network\ Behavior ][.Virtual\ Network\ System ]]
+		\end{tikzpicture}
+		\caption{Detect Malwares in IT networks}\label{Networks}
+	\end{figure}
 	
-	
-	\section{Techniques to perform Malware Anlysis for Malwares on Android Devices}
+	\section{Techniques to perform Malware Analysis for Malwares on Android Devices}
 	Google’s Android System is a comprehensive software framework targeted towards smart mobile devices which includes an operating system based on the popular Linux OS, middleware and a set of key applications. It is an open-source and community based framework which provides APIs to most of its software and hardware components. Specifically, it allows third-party developers to develop their own applications. The applications are written in the Java programming language based on the APIs provided by the Android Software Development Kit (SDK) and compiled to Dalvik bytecode, but developers can also develop and modify kernel-based functionalities as well.
 	Due to the ubiquity and prevalence of smart mobile phones, of which Android has a tremendous 88\% market share, it has become a frequent target of malicious attacks through malware, spyware, viruses, trojans, etc, under the guise of legitimate applications. This necessitates research in providing frameworks and systems to detect and protect our smartphones.
 	Various methods have been devised in this regard. Two commonly seen approaches are static and dynamic analysis of malware. The former examines the malware without running the application, using methods of source code and binary analysis for hints of malicious intent, whereas the latter executes the malware in a controlled and monitored environment to observe its behaviour. In this part of our project, we will survey a few papers which have proposed techniques and systems to achieve the aforementioned and discuss their methods. 
@@ -572,6 +610,16 @@ by mocking human actions so the attacker will focus on them instead of the actua
 	For performing classification using Machine Learning, a number of different algorithms were used: Random Forests, 1-Nearest-Neighbor, 3-Nearest-Neighbor, and Support Vector Machines. After extensive testing and experimenting, the results are conclusive that modeling the sequence of API calls as as Markov chain is a successful method of capturing the behavioral model of that application. This fact allowed MamaDroid to obtain a very high accuracy of classification and it promises to retain that level of accuracy over the years, due to the abstraction of specific API calls.
 	
 	We have seen that there exist many different approaches to malware detection on Android systems. Ubiquitously, dynamic analysis is considered to be far more advantageous than static analysis on this system, particularly due to the ease of code obfuscation. Another trend we can observe is the use of Machine Learning to learn the various models of the types of malware in operation currently. This idea has a lot of potential and I believe with the progress of machine learning techniques and algorithms, malware analysis will continue to become better and better and perhaps malware on Android systems will be vanquished entirely.
+	As a conclusion we make a tree structure of various techniques employed by detection of Android malwares. This can be described as Figure~\ref{Android}\\
+	\begin{figure}[b]
+		\centering
+		\begin{tikzpicture}
+		\Tree
+		[.Android\ Malwares [.Andromaly ] [.AppsPlayground ] [.DroidScope ][.MAMDROID ]]
+		\end{tikzpicture}
+		\caption{Techniques to detect Android Malwares}\label{Android}
+	\end{figure}
+	
 
 	\section{Techniques for Proactive Defense against Malwares}
 	
@@ -713,97 +761,53 @@ The network data is very large, heterogeneous, highly varying and imbalanced. Re
 	Malicious code is defined as any program that is specifically coded to cause an unexpected (and usually) unwanted event on a User’s PC or Server. There are several types of malware such as Adware, Spyware, Virus, Worms, etc. The antivirus technologies that are present currently are Signature-based scanning,	Heuristic analysis, Cyclic redundancy check (CRC) scanner, Vaccination technology, Behavior blockers, Immunizers, Snapshot technology and Sandbox technology.\\ \\
 	There has been an increase in the amount of malicious codes along with polymorphism and metamorphism in malicious codes. Researchers have to deal with any reported unknown malicious code by manual analysis, and then denote a signature for it and update the virus database. This paper tries to establish an automatic mechanism to assistant classifying and identifying unknown malicious codes. There are two types of behavioral analysis techniques. One is static analysis in which the binary code is disassembled and the functions of the program are analyzed without executing it. The second one is dynamic analysis in which we analyze the code during runtime. Malicious behavior can be categorized as File-related behavior, Process-related behavior, Window-related behavior, Network-related behavior, Register-related behavior and Windows service behavior.\\ \\
 	The paper then describes the analysis methods particularly, Statistic-based method and MoE (Mixture of Experts) Neural Network Model. Two experiments were conducted where the MoE model showed a better performance although both did not get the detection rate to 100\%. Ultimately, the researchers concluded that a single method cannot get the best result.  The detection rate did not reach 100\% because definition of malicious codes changes with users. As a future research, a larger data set was proposed for the experiment and finding other ways to improve proactive detection.	
-	
+	As a conclusion we make a tree structure of various techniques employed by proactive detection of malwares and threat intelligence. This can be described as Figure~\ref{proactive}\\
+	\begin{figure}
+		\centering
+			\begin{tikzpicture}
+		\Tree
+		[.Proactive\ Defense [.Cyber\ Threat\ Analysis ] [.HookScout ] [.Threat\ Intelligence ][.Data\ Mining ] [.Sonicwall ][.Soft\ Computing ][.Behavior-based ] ]
+		\end{tikzpicture}
+		\caption{Proactive Detection Techniques}\label{proactive}
+	\end{figure}
 	
 	
 
 	\section{Conclusion and Recommendations}
-	\subsection{Tree Structure of Techniques}
-	After studying a part of the extensive literature on Malware Anlaysis techniques, proactive detection and prevention we came to a conclusion to make a tree structure about various techniques and tools we studied. This structure is presented in the diagram. It gives a precise idea of the whole survey article. When we started of with this project we together came up with this idea and making this as our major result. 
-	As we can see the root node of this tree is our topic and the children are followed according to our project goals and literature studied on the topic.
+	\subsection{Tree Structure of Tools \& Techniques}
+	After studying a part of the extensive literature on Malware Anlaysis techniques, proactive detection and prevention we came to a conclusion to make a tree structure about various techniques and tools we studied. This structure is presented in the diagrams. It gives a precise idea of the whole survey article. When we started of with this project we together came up with this idea and making this as our major result. At the end of each section we present you with this tree structure
+	As we can see the root node of this tree is our topic and the children are followed according to our project goals and literature studied on the topic. We provide with these trees as our study on techniques to perform malware analysis and how to proactively prevent and detect them.
+		
 	
-	\subsection{Research topics surveyed}
-	In this section we describe various research topics we surveyed as a group. During our initial paper review at the start of the project, every member picked a research paper published in well known conference recently. Post that review we decided to continue our study on these topics individually. Table below summarizes these research topics 
-	\begin{table}
-		\centering
-		\begin{tabular}{ccc}
-			\hline
-			Sr. No & Name & Research Area\\
-			\hline
-			1 & Tejas Khairnar & Proactive Detection and Prevention of Malwares\\
-			\hline
-			2 & Sujay Vaishampayan & Malware Analysis using Hardware Virtualization	Techniques\\
-			\hline
-			3 & Zhibo Sun & Proactive Detection and Prevention of Malwares\\
-			\hline
-			4 & Harshil Maskai & Malware Reverse Engineering\\
-			\hline
-			5 & Aloma Lopes & Dynamic Malware Analysis\\
-			\hline
-			6 & Chaitanya Palaka & Malware Analysis for Android Malwares\\
-			\hline
-			7 & Varun Chandrasekar & Malware Reverse Engineering\\
-			\hline
-			8 & Raj Dalvi & Proactive Malware Detection\\
-			\hline
-			9 & Vimal Vadivelu & Dynamic Malware Analysis\\
-			\hline
-			10 & Kunal Bansal & Techniques to prevent IT network from Malwares\\
-			\hline
-		\end{tabular}
-%	\caption[\titlecap{Research Areas}]{Research Areas}
-	\label{tab:Research_Areas}
-	\end{table}
+	\subsection{Prevent Malwares on the Network itself}
+	This section explains you the results we obtained from our survey article about techniques to prevent IT network from Malwares. We observed that detection of malware can also be done on the network level. Various tools can be used to continuously monitor the network traffic to check for malware signatures.  We try to represent these techniques in a tree structure as below.\\
+	
+	
+	\subsection{Analyze Android Malwares}
+	This section explains you the results we obtained from our survey article about techniques to perform Malware Analysis for Malwares on Android Devices. We have seen that there exist many different approaches to malware detection on Android systems. Ubiquitously, dynamic analysis is considered to be far more advantageous than static analysis on this system, particularly due to the ease of code obfuscation. Another trend we can observe is the use of Machine Learning to learn the various models of the types of malware in operation currently. This idea has a lot of potential and I believe with the progress of machine learning techniques and algorithms, malware analysis will continue to become better and better and perhaps malware on Android systems will be vanquished entirely. On this point, one observation I’ve made is that these papers generally use generic and slightly deprecated Machine Learning algorithms (such as Naive Baye’s and SVM classifiers). This is mostly due to the focus of many of these papers on primarily creating a novel framework or system and the fact these authors perhaps aren’t as well versed in current Machine Learning research as current Malware Analysis research. We think this is definitely an area of improvement which could further the prospects of their research and results. With the advent and current popularity of Neural networks and Deep Learning techniques, we would imagine that using these techniques might improve their results if they were used appropriately. 
+	We try to represent these techniques in a tree structure as below.\\
+		
+	
+	\subsection{Proactive Defense against Malwares}
+	This section explains you the results we obtained from our survey article about techniques for proactive defense against malwares.Through reading the papers and white papers, we studied the malware proactive detection and prevention from two aspects. One is from the analysis of the malicious software itself dynamically and statically. The other one is through threat intelligence to detect and prevent from malware. By reading these papers, we saw most of effective analysis approaches, including intelligence generation, need to involve both of dynamic analysis and static analysis.  Traditional analysis can solve many of threats, but intelligence analysis can give us more insights about the malicious behaviors and events, which can help use design new comprehensive proactive detection and prevention strategies. We try to represent these techniques in a tree structure as below\\
+	
+	\subsection{Tabular summary of techniques employed by different Tools}
+	In the article we talk about various tools which are in the wild to perform static or dynamic analysis of malwares. In this section we summarize all the techniques we studied used by various malware analysis tools. This also allows us to compare these tools when we think about using any tool to perform malware analysis. Considering these techniques implemented we can also think about mixing and matching these techniques to build a more intelligent and improvised tool.
+	\input{tool-table}
 
-	\begin{table}
-		\centering
-		\begin{tabular}{cccc}
-			\hline
-			Sr. No & Name & Timeline & Status\\
-			\hline
-			1 & Decide about Research topic  & Week 1 starting 9th January & Completed\\
-			\hline
-			2 & Search for research papers related to the topic & Week 2 starting 16th January & Completed\\
-			\hline
-			3 & Intial Project Proposal & Week 3 starting 23rd January & Completed\\
-			\hline
-			4 & Summarize the work done till date for interim report & Week 3 \& 4 till 10th February & Completed\\
-			\hline
-			5 & Interim Project Report  & Week 6 starting 20th February  & Completed\\
-			\hline
-			6 & Reading more literature about Malware analysis techniques & Week 7 starting 27th February & Completed\\
-			\hline
-			7 & Discuss more about proactive detection and prevention of Malwares & Week 9 starting 13th March & Completed\\
-			\hline
-			8 & Compiling more data from research papers read & Week 10 starting 20th March & Completed\\
-			\hline
-			9 & Compiling the final survey report & Week 11 till 27th March & Completed\\
-			\hline
-		\end{tabular}
-%	\caption[\titlecap{Project Time-line}]{Project Time-line}
-	\label{tab:timeline}
-	\end{table}
 	
-	
-	\begin{landscape}
-		%\parindent=0pt
-		%\eject\null
-		%\vfill
-		%\hspace*{-4cm}
-		\begin{tikzpicture}
-	
-	\Tree [.Malware\ Analysis 
-	[.Hardware\ Virtualization [.Ether ] [.Process\ Implanting ] [.V2E ][.SPIDER ][.DRAKVUF ]] [.Static\ Analysis ]
-	[.Dynamic\ Analysis [.Sandbox ][.MEP ][.Bypass\ Stalling\ Code ][.BareCloud\ System ][.Evasion\ Signatures ]]
-	[.Reverse\ Engineering [.DREAM ][.DREAM++ ][.REWARDS ][.HERESy ][.Rotalume ][.COBRA ][.MEF ][.OmniUnpack ][.FilePrints ]]
-	[.IT\ Network\ Protection [.Distributed\ IDS ][.SNORT ][.Using\ SDN ][.Deviations\ in\ Network\ Behavior ][.Network\ IDS ] ]
-	[.Analysis\ in\ Android [.Andromaly ][.AppsPlayground ][.DroidScope ][.MamaDroid ]]
-	[.Proactive\ Defense [.Cyber\ Threat\ Analysis ][.HookScout ][.Threat\ Intelligence ][.Public\ Dynamic\ Analysis ][.SONICWALL ][.Soft\ Computing ][.NIDS\ using\ proactive\ mechanism ][.Behavior\ based ]]
-	]
-	\end{tikzpicture}%
-	%\hfill
-	%\vfill
-	\end{landscape}
+	\subsection{Recommendations}
+	Fight against Malwares is the most required thing in the Security as well as IT world today. After studying the literature over this topic we came to some recommendations by which this fight against malwares can be further improved.
+	\begin{enumerate}
+		\item Designing automated tools to detect malwares is a task we can be improvised. There are various techniques like static program analysis, constraint solving, symbolic code execution which can be used in order to make these tools. A malware reverse engineer uses tools like IDA pro and gnu debugger to reverse engineer the malware binaries. Automated tool can perform these things and try to gain more information about execution of malware without running it. So, this technique will prevent us from executing the malware in a sand-boxed environment.
+		
+		\item We can also make improvements in the techniques to detect malware on the network level. Current techniques implement, packet inspection to determine whether any packet has malicious code in it or not. But even these techniques don't allow us to exactly identify whether the code is indeed malicious or no. This generates a lot of false positive and can harm benign traffic flowing in the network. We can use software defined network in order to perform deep packet inspection of every packet flowing in and out of the network. Various concepts like hoenypots can be used to lure the traffic and detect behavior of this malicious code. Once we learn its behavior various blocking constraints can be implements on the original network.
+		
+		\item Current research is going on the hot topic of threat intelligence. Malware analysis module is the most important part in order to generate intelligence. Researchers and Industry professionals are now stressing on having an Intelligent Security Operations Center which will provide them with live threat reports and keep them updated against current Zero day vulnerabilities. After reading the literature available on this topic we feel that there is a lot of work which can be done in this area. There is a whole different world present in the so called and well known dark web. On this inter-network, which is not cached by public crawlers like Google, Yahoo, people share and upload whole new level of content which is illegal, obscene or malicious. If we want to have a really good threat intelligence feed then we should not neglect this inter-network. So we think that, crawling the dark web will also provide humongous amount of threat intelligence. Many of the BlackHat guys are known to publish zero day exploits on this websites. Hence, if we have live constant feed of these details then our security operations center can be one step ahead in proactively defending against malwares. Threat intelligence can also be gained by analyzing malwares using various Tools we studied in this article. One such technique was used by ~\cite{moditowards}, which is maintaining a datastore of analyzed malware and gaining pieces of intelligence from these analyzed malware as threat feeds.
+		
+		\item Bring-Your-Own-Device is a new thing today in the corporate world. Employees are allowed to access the company VPN through their mobile device. Due to this, the malware community has got a new direction and motivation to write malwares. This community is now constantly evolving in scripting malwares for Android as well as iOS devices. In this article we studied the literature available on techniques to detect android malwares. In addition to this, research can also look into various techniques to detect iOS malwares. 
+	\end{enumerate}
+
 \bibliographystyle{plain}
 \bibliography{biblio}
 \end{document}
